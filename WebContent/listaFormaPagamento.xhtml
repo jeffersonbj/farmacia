@@ -13,13 +13,15 @@
 
 		<h:form>
 			<p:commandButton value="Nova Forma de Pagamento" ajax="false"
-				action="#{formaPagamentoBean.acaoAbrirInclusao}" immediate="true" image="ui-icon-document"></p:commandButton>
-			
-			<p:dataTable id="tabelaFormaPagamento" value="#{formaPagamentoBean.formas}"
-				var="forma" paginator="true" rows="15"
-				rowsPerPageTemplate="10,25,50"
-				rendered="#{not empty formaPagamentoBean.formas}" selectionMode="single"
-				selection="#{formaPagamentoBean.forma}" rowKey="#{forma.id}">
+				action="#{formaPagamentoBean.acaoAbrirInclusao}" immediate="true"
+				image="ui-icon-document"></p:commandButton>
+
+			<p:dataTable id="tabelaFormaPagamento"
+				value="#{formaPagamentoBean.formas}" var="forma" paginator="true"
+				rows="15" rowsPerPageTemplate="10,25,50"
+				rendered="#{not empty formaPagamentoBean.formas}"
+				selectionMode="single" selection="#{formaPagamentoBean.forma}"
+				rowKey="#{forma.id}">
 
 				<f:facet name="header">
 					<h:outputText value="Lista de Formas de Pagamentos:" />
@@ -34,20 +36,19 @@
 					<f:facet name="header">Descricao</f:facet>
 					<h:outputText value="#{forma.descricao}" />
 				</p:column>
-				
+
 				<p:column>
 					<f:facet name="header">
 						<h:outputText value="Ações" />
 					</f:facet>
 					<h:panelGroup>
 						<p:commandButton ajax="false" type="push" value="Alterar"
-							action="#{formaPagamentoBean.acaoAbrirAlteracao}" immediate="true"
-							image="ui-icon-pencil">
+							action="#{formaPagamentoBean.acaoAbrirAlteracao}"
+							immediate="true" image="ui-icon-pencil">
 							<f:param value="#{forma.id}" name="itemId" />
 						</p:commandButton>
 
-						<p:commandButton type="button" value="Excluir"
-							action="#{formaPagamentoBean.acaoExcluir}">
+						<p:commandButton type="button" value="Excluir">
 							<p:confirm header="Confirmação"
 								message="Deseja excluir este registro?" icon="ui-icon-alert" />
 						</p:commandButton>
@@ -55,11 +56,14 @@
 						<p:confirmDialog showEffect="bounce" hideEffect="explode"
 							global="true">
 
-							<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" >
+							<p:commandButton value="Sim" type="button" ajax="false" 
+								styleClass="ui-confirmdialog-yes" icon="ui-icon-check"
+								immediate="true" action="#{formaPagamentoBean.acaoExcluir}">
 								<f:param value="#{forma.id}" name="itemId" />
 							</p:commandButton>
 
-							<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+							<p:commandButton value="Não" type="button"
+								styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
 						</p:confirmDialog>
 
 					</h:panelGroup>

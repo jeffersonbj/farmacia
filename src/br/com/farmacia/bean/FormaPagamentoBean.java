@@ -30,7 +30,7 @@ public class FormaPagamentoBean {
 		this.formas = null;
 		this.forma = new FormaPagamento();
 
-		return "listaFormaPagamento.xhtml";
+		return "listaFormaPagamento";
 	}
 
 	public List<FormaPagamento> getFormas() {
