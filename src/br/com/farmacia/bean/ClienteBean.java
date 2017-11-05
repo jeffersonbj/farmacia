@@ -1,6 +1,5 @@
 package br.com.farmacia.bean;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -59,11 +58,10 @@ public class ClienteBean {
 	
 	public String acaoAbrirAlteracao()
 	{
-		/*;
-		Long id = JSFUtil.getParametroLong("itemId");
-		Usuario objetoDoBanco = this.dao.lerPorId(id);
-		this.setUsuario(objetoDoBanco);
-*/
+		/*
+		 * Long id = JSFUtil.getParametroLong("itemId"); 
+		 * Usuario objetoDoBanco = this.dao.lerPorId(id); this.setUsuario(objetoDoBanco);
+		 */
 		return "cliente";
 	}
 	

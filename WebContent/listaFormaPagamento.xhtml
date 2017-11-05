@@ -8,35 +8,31 @@
 
 
 <ui:composition template="_template.xhtml">
-	<ui:define name="titulo">Clientes</ui:define>
+	<ui:define name="titulo">Forma de Pagamento</ui:define>
 	<ui:define name="conteudo">
 
-
-
 		<h:form>
-			<p:commandButton value="Novo Cliente" ajax="false"
-				action="cliente.xhtml" onclick="this.form.target='_self'"></p:commandButton>
+			<p:commandButton value="Nova Forma de Pagamento" ajax="false"
+				action="formaPagamento.xhtml" onclick="this.form.target='_self'"></p:commandButton>
 			
-
-
-			<p:dataTable id="tabelaClientes" value="#{clienteBean.clientes}"
+			<p:dataTable id="tabelaFormaPagamento" value="#{formaPagamentoBean.formas}"
 				var="cliente" paginator="true" rows="15"
 				rowsPerPageTemplate="10,25,50"
-				rendered="#{not empty clienteBean.clientes}" selectionMode="single"
-				selection="#{clienteBean.cliente}" rowKey="#{cliente.id}">
+				rendered="#{not empty formaPagamentoBean.formas}" selectionMode="single"
+				selection="#{formaPagamentoBean.forma}" rowKey="#{forma.id}">
 
 				<f:facet name="header">
-					<h:outputText value="Lista de CLientes Cadastrados:" />
+					<h:outputText value="Lista de Formas de Pagamentos:" />
 				</f:facet>
 
 				<p:column>
 					<f:facet name="header">Nome</f:facet>
-					<h:outputText value="#{cliente.nome}" />
+					<h:outputText value="#{forma.nome}" />
 				</p:column>
 
 				<p:column>
-					<f:facet name="header">Telefone</f:facet>
-					<h:outputText value="#{cliente.telefone}" />
+					<f:facet name="header">Descricao</f:facet>
+					<h:outputText value="#{forma.descricao}" />
 				</p:column>
 				
 				<p:column>
@@ -45,13 +41,13 @@
 					</f:facet>
 					<h:panelGroup>
 						<p:commandButton ajax="false" type="push" value="Alterar"
-							action="#{clienteBean.acaoAbrirAlteracao}" immediate="true"
+							action="#{formaPagamentoBean.acaoAbrirAlteracao}" immediate="true"
 							image="ui-icon-pencil">
 							<f:param value="#{cliente.id}" name="itemId" />
 						</p:commandButton>
 
 						<p:commandButton type="button" value="Excluir"
-							action="#{clienteBean.acaoExcluir}">
+							action="#{formaPagamentoBean.acaoExcluir}">
 							<p:confirm header="Confirmação"
 								message="Deseja excluir este registro?" icon="ui-icon-alert" />
 						</p:commandButton>
@@ -60,7 +56,7 @@
 							global="true">
 
 							<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" >
-								<f:param value="#{cliente.id}" name="itemId" />
+								<f:param value="#{forma.id}" name="itemId" />
 							</p:commandButton>
 
 							<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
@@ -74,4 +70,3 @@
 		</h:form>
 	</ui:define>
 </ui:composition>
-</html>

@@ -11,14 +11,10 @@
 	<ui:define name="titulo">Clientes</ui:define>
 	<ui:define name="conteudo">
 
-
-
 		<h:form>
 			<p:commandButton value="Novo Cliente" ajax="false"
 				action="cliente.xhtml" onclick="this.form.target='_self'"></p:commandButton>
-			
-
-
+		
 			<p:dataTable id="tabelaClientes" value="#{clienteBean.clientes}"
 				var="cliente" paginator="true" rows="15"
 				rowsPerPageTemplate="10,25,50"
