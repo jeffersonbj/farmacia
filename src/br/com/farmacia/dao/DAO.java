@@ -1,9 +1,7 @@
 package br.com.farmacia.dao;
 
-import java.sql.Date;
-import java.text.SimpleDateFormat;
-import java.util.List;
 
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
@@ -67,6 +65,13 @@ public class DAO<T> {
 	}
 
 	public T buscaPorId(Integer id) {
+		EntityManager em = new JPAUtil().getEntityManager();
+		T instancia = em.find(classe, id);
+		em.close();
+		return instancia;
+	}
+	
+	public T buscaPorId(Long id) {
 		EntityManager em = new JPAUtil().getEntityManager();
 		T instancia = em.find(classe, id);
 		em.close();

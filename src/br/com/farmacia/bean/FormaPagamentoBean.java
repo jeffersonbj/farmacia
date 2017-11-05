@@ -1,32 +1,36 @@
 package br.com.farmacia.bean;
 
 import java.util.List;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-
 import br.com.farmacia.dao.DAO;
-import br.com.farmacia.modelo.Cliente;
 import br.com.farmacia.modelo.FormaPagamento;
+import br.com.farmacia.util.JSFUtil;
 
 @ManagedBean
 @RequestScoped
 public class FormaPagamentoBean {
 
-	private FormaPagamento formapagamento = new FormaPagamento();
+	private FormaPagamento forma = new FormaPagamento();
 	private List<FormaPagamento> formas = null;
 
-	public FormaPagamento getFormaPagamento() {
-		return formapagamento;
+	public FormaPagamento getForma() {
+		return forma;
 	}
 
 	public String gravar() {
-		System.out.println("Gravando nome " + this.formapagamento.getNome());
+		System.out.println("Gravando Forma de Pagamento: " + this.forma.getId());
 
-		new DAO<FormaPagamento>(FormaPagamento.class).adiciona(this.formapagamento);
+		if (this.forma.getId() > 0) {
+			new DAO<FormaPagamento>(FormaPagamento.class).atualiza(this.forma);
+		} else {
+			new DAO<FormaPagamento>(FormaPagamento.class).adiciona(this.forma);
+		}
 
-		this.formapagamento = new FormaPagamento();
-		return "listaProduto.xhtml";
+		this.formas = null;
+		this.forma = new FormaPagamento();
+
+		return "listaFormaPagamento.xhtml";
 	}
 
 	public List<FormaPagamento> getFormas() {
@@ -36,18 +40,31 @@ public class FormaPagamentoBean {
 		return this.formas;
 	}
 
+	public String acaoAbrirInclusao(){
+		this.forma = new FormaPagamento();
+		
+		return "formaPagamento";
+	}
+	
 	public String acaoAbrirAlteracao() {
-		/*
-		 * ; Long id = JSFUtil.getParametroLong("itemId"); Usuario objetoDoBanco
-		 * = this.dao.lerPorId(id); this.setUsuario(objetoDoBanco);
-		 */
-		return "cliente";
+
+		int id = JSFUtil.getParametroInteger("itemId");
+		this.forma = new DAO<FormaPagamento>(FormaPagamento.class).buscaPorId(id);
+
+		return "formaPagamento";
 	}
 
 	public String acaoExcluir() {
 		System.out.println("exclusão");
 
-		return "listaCliente";
+		int id = JSFUtil.getParametroInteger("itemId");
+		FormaPagamento objeto = new DAO<FormaPagamento>(FormaPagamento.class).buscaPorId(id);
+		new DAO<FormaPagamento>(FormaPagamento.class).remove(objeto);
+		
+		this.forma = new FormaPagamento();
+		this.formas = null;
+		
+		return "listaFormaPagamento";
 	}
 
 }

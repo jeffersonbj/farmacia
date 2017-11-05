@@ -13,10 +13,10 @@
 
 		<h:form>
 			<p:commandButton value="Nova Forma de Pagamento" ajax="false"
-				action="formaPagamento.xhtml" onclick="this.form.target='_self'"></p:commandButton>
+				action="#{formaPagamentoBean.acaoAbrirInclusao}" immediate="true" image="ui-icon-document"></p:commandButton>
 			
 			<p:dataTable id="tabelaFormaPagamento" value="#{formaPagamentoBean.formas}"
-				var="cliente" paginator="true" rows="15"
+				var="forma" paginator="true" rows="15"
 				rowsPerPageTemplate="10,25,50"
 				rendered="#{not empty formaPagamentoBean.formas}" selectionMode="single"
 				selection="#{formaPagamentoBean.forma}" rowKey="#{forma.id}">
@@ -43,7 +43,7 @@
 						<p:commandButton ajax="false" type="push" value="Alterar"
 							action="#{formaPagamentoBean.acaoAbrirAlteracao}" immediate="true"
 							image="ui-icon-pencil">
-							<f:param value="#{cliente.id}" name="itemId" />
+							<f:param value="#{forma.id}" name="itemId" />
 						</p:commandButton>
 
 						<p:commandButton type="button" value="Excluir"
@@ -70,3 +70,4 @@
 		</h:form>
 	</ui:define>
 </ui:composition>
+</html>
