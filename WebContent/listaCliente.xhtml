@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<ui:composition template="_template.xhtml">
+	<ui:define name="titulo">Clientes</ui:define>
+	<ui:define name="conteudo">
+
+
+
+		<h:form>
+			<p:commandButton value="Novo Cliente" ajax="false"
+				action="cliente.xhtml" onclick="this.form.target='_self'"></p:commandButton>
+			
+
+
+			<p:dataTable id="tabelaClientes" value="#{clienteBean.clientes}"
+				var="cliente" paginator="true" rows="15"
+				rowsPerPageTemplate="10,25,50"
+				rendered="#{not empty clienteBean.clientes}" selectionMode="single"
+				selection="#{clienteBean.cliente}" rowKey="#{cliente.id}">
+
+				<f:facet name="header">
+					<h:outputText value="Lista de CLientes Cadastrados:" />
+				</f:facet>
+
+				<p:column>
+					<f:facet name="header">Nome</f:facet>
+					<h:outputText value="#{cliente.nome}" />
+				</p:column>
+
+				<p:column>
+					<f:facet name="header">Telefone</f:facet>
+					<h:outputText value="#{cliente.telefone}" />
+				</p:column>
+				
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Ações" />
+					</f:facet>
+					<h:panelGroup>
+						<p:commandButton ajax="false" type="push" value="Alterar"
+							action="#{clienteBean.acaoAbrirAlteracao}" immediate="true"
+							image="ui-icon-pencil">
+							<f:param value="#{cliente.id}" name="itemId" />
+						</p:commandButton>
+
+						<p:commandButton type="button" value="Excluir"
+							action="#{clienteBean.acaoExcluir}">
+							<p:confirm header="Confirmação"
+								message="Deseja excluir este registro?" icon="ui-icon-alert" />
+						</p:commandButton>
+
+						<p:confirmDialog showEffect="bounce" hideEffect="explode"
+							global="true">
+
+							<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" >
+								<f:param value="#{cliente.id}" name="itemId" />
+							</p:commandButton>
+
+							<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+						</p:confirmDialog>
+
+					</h:panelGroup>
+				</p:column>
+
+			</p:dataTable>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

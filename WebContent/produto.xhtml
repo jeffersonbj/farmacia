@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition template="_template.xhtml">
+
+	<ui:define name="titulo">Novo Produto</ui:define>
+	<ui:define name="conteudo">
+		<h:form>
+			<fieldset>
+				<legend>Dados do Produto</legend>
+				<h:panelGrid columns="2">
+
+					<h:outputLabel value="Nome:" for="nome" />
+					<p:inputText id="nome" value="#{produtoBean.produto.nome}" />
+
+					<h:outputLabel value="Código do Produto" for="codigoDoProduto" />
+					<p:inputText id="codigoDoProduto"
+						value="#{produtoBean.produto.codigoDoProduto}" />
+
+					<h:outputLabel value="Descrição do Produto:"
+						for="descricaoDoProduto" />
+					<p:inputText id="descricaoDoProduto"
+						value="#{produtoBean.produto.descricaoDoProduto}" />
+
+					<h:outputLabel value="Quantidade:" for="quantidade" />
+					<p:inputText id="quantidade"
+						value="#{produtoBean.produto.quantidade}" />
+
+						
+						<p:calendar value="#{produtoBean.produto.dataDaEntrada}"
+						pattern="dd/MM/yyyy" id="dataDaEntrada">
+					</p:calendar>
+
+					<h:outputLabel value="Valor do Produto" for="valorDoProduto" />
+					<p:inputText id="valorDoProduto"
+						value="#{produtoBean.produto.valorDoProduto}" />
+
+
+				</h:panelGrid>
+			</fieldset>
+
+
+			<p:commandButton value="Gravar" action="#{produtoBean.gravar}" />
+			<p:commandButton value="Voltar" ajax="false" action="listaProduto"
+				onclick="this.form.target='_self'"></p:commandButton>
+		</h:form>
+	</ui:define>
+</ui:composition>
+
+</html>

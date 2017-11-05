@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+	version="2.0">
+
+	<persistence-unit name="farmacia" transaction-type="RESOURCE_LOCAL">
+
+   		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		
+		<class>br.com.farmacia.modelo.Pessoa</class>
+		<class>br.com.farmacia.modelo.Cliente</class>
+		<class>br.com.farmacia.modelo.Produto</class>
+		<class>br.com.farmacia.modelo.Cargo</class>
+		<class>br.com.farmacia.modelo.Funcionario</class>
+		<class>br.com.farmacia.modelo.Vendas</class>
+		<class>br.com.farmacia.modelo.FormaPagamento</class>
+		
+		<properties>
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/farmaciadb" />
+			<property name="javax.persistence.jdbc.user" value="root" />
+			<property name="javax.persistence.jdbc.password" value="amanda" />
+
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
+			
+			<!-- create :- create the schema, the data previously present (if there) in the schema is lost
+				update:- update the schema with the given values.
+				validate:- validate the schema. It makes no change in the DB.
+				create-drop:- create the schema with destroying the data previously present(if there). It also drop the database schema when the SessionFactory is closed. -->
+		</properties>
+	</persistence-unit>
+
+</persistence>

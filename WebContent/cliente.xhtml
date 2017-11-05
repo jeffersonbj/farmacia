@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition template="_template.xhtml">
+
+	<ui:define name="titulo">Novo Cliente</ui:define>
+	<ui:define name="conteudo">
+		<h:form>
+			<fieldset>
+				<legend>Dados do Cliente</legend>
+				<h:panelGrid columns="2">
+
+					<h:outputLabel value="Nome:" for="nome" />
+					<p:inputText id="nome" value="#{clienteBean.cliente.nome}" />
+
+					<h:outputLabel value="Telefone:" for="telefone" />
+					<p:inputText id="telefone" value="#{clienteBean.cliente.telefone}" />
+
+					<h:outputLabel value="Endereco:" for="endereco" />
+					<p:inputText id="endereco" value="#{clienteBean.cliente.endereco}" />
+
+					<h:outputLabel value="Bairro:" for="bairro" />
+					<p:inputText id="bairro" value="#{clienteBean.cliente.bairro}" />
+
+					<h:outputLabel value="Complemento:" for="complemento" />
+					<p:inputText id="complemento"
+						value="#{clienteBean.cliente.complemento}" />
+
+					<h:outputLabel value="Tipo:" for="tipo" />
+					<p:inputText id="tipo" value="#{clienteBean.cliente.tipo}" />
+
+					<h:outputLabel value="DataDeNascimento:" for="dataDeNascimento" />
+
+					<p:calendar value="#{clienteBean.cliente.dataDeNascimento}"
+						pattern="dd/MM/yyyy" id="dataDeNascimento">
+					</p:calendar>
+
+					<h:outputLabel value="NumResidencia:" for="numResidencia" />
+					<p:inputText id="numResidencia"
+						value="#{clienteBean.cliente.numResidencia}" />
+
+					<h:outputLabel value="PontoDeReferencia:" for="pontoDeReferencia" />
+					<p:inputText id="pontoDeReferencia"
+						value="#{clienteBean.cliente.pontoDeReferencia}" />
+
+					<h:outputLabel value="Cep:" for="cep" />
+					<p:inputText id="cep" value="#{clienteBean.cliente.cep}" />
+
+				</h:panelGrid>
+			</fieldset>
+
+
+			<p:commandButton value="Gravar" action="#{clienteBean.gravar}" />
+			<p:commandButton value="Voltar" ajax="false" action="listaCliente"  onclick="this.form.target='_self'"></p:commandButton>
+		</h:form>
+	</ui:define>
+</ui:composition>
+
+</html>
