@@ -3,12 +3,14 @@ package br.com.farmacia.bean;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
+
 import br.com.farmacia.dao.DAO;
+import br.com.farmacia.modelo.Cliente;
 import br.com.farmacia.modelo.FormaPagamento;
 import br.com.farmacia.util.JSFUtil;
 
 @ManagedBean
-@RequestScoped
 public class FormaPagamentoBean {
 
 	private FormaPagamento forma = new FormaPagamento();
@@ -40,12 +42,18 @@ public class FormaPagamentoBean {
 		return this.formas;
 	}
 
-	public String acaoAbrirInclusao(){
+	public String acaoAbrirInclusao() {
 		this.forma = new FormaPagamento();
-		
-		return "formaPagamento";
+
+		return "formaPagamento?faces-redirect=true";
 	}
 	
+	public String acaoAbrirListagem() {
+		this.forma = new FormaPagamento();
+
+		return "listaFormaPagamento?faces-redirect=true";
+	}
+
 	public String acaoAbrirAlteracao() {
 
 		int id = JSFUtil.getParametroInteger("itemId");
@@ -58,12 +66,14 @@ public class FormaPagamentoBean {
 		System.out.println("exclusão");
 
 		int id = JSFUtil.getParametroInteger("itemId");
+
+		System.out.println("ID: " + id);
 		FormaPagamento objeto = new DAO<FormaPagamento>(FormaPagamento.class).buscaPorId(id);
 		new DAO<FormaPagamento>(FormaPagamento.class).remove(objeto);
-		
+
 		this.forma = new FormaPagamento();
 		this.formas = null;
-		
+
 		return "listaFormaPagamento";
 	}
 

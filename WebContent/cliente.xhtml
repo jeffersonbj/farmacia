@@ -11,6 +11,7 @@
 	<ui:define name="titulo">Novo Cliente</ui:define>
 	<ui:define name="conteudo">
 		<h:form>
+		<h:inputHidden id="idCliente" value="#{clienteBean.cliente.id}" />
 			<fieldset>
 				<legend>Dados do Cliente</legend>
 				<h:panelGrid columns="2">
@@ -56,7 +57,7 @@
 
 
 			<p:commandButton value="Gravar" action="#{clienteBean.gravar}" />
-			<p:commandButton value="Voltar" ajax="false" action="listaCliente"  onclick="this.form.target='_self'"></p:commandButton>
+			<p:commandButton value="Voltar" ajax="false" action="#{clienteBean.acaoAbrirListagem}"></p:commandButton>
 		</h:form>
 	</ui:define>
 </ui:composition>

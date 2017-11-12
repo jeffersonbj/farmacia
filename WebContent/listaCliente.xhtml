@@ -12,8 +12,9 @@
 	<ui:define name="conteudo">
 
 		<h:form>
-			<p:commandButton value="Novo Cliente" ajax="false"
-				action="cliente.xhtml" onclick="this.form.target='_self'"></p:commandButton>
+			<p:commandButton value="Novo Cliente" ajax="false" immediate="true"
+				image="ui-icon-document"
+				action="#{clienteBean.acaoAbrirInclusao}" ></p:commandButton>
 		
 			<p:dataTable id="tabelaClientes" value="#{clienteBean.clientes}"
 				var="cliente" paginator="true" rows="15"
@@ -46,21 +47,11 @@
 							<f:param value="#{cliente.id}" name="itemId" />
 						</p:commandButton>
 
-						<p:commandButton type="button" value="Excluir"
-							action="#{clienteBean.acaoExcluir}">
-							<p:confirm header="Confirmação"
-								message="Deseja excluir este registro?" icon="ui-icon-alert" />
+						<p:commandButton   ajax="false" type="push" value="Excluir"
+							action="#{clienteBean.acaoExcluir}"
+							immediate="true" image="ui-icon-trash">
+							<f:param value="#{cliente.id}" name="itemId" />
 						</p:commandButton>
-
-						<p:confirmDialog showEffect="bounce" hideEffect="explode"
-							global="true">
-
-							<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" >
-								<f:param value="#{cliente.id}" name="itemId" />
-							</p:commandButton>
-
-							<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-						</p:confirmDialog>
 
 					</h:panelGroup>
 				</p:column>

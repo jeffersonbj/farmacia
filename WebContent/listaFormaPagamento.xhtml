@@ -11,7 +11,7 @@
 	<ui:define name="titulo">Forma de Pagamento</ui:define>
 	<ui:define name="conteudo">
 
-		<h:form>
+		<h:form id="form">
 			<p:commandButton value="Nova Forma de Pagamento" ajax="false"
 				action="#{formaPagamentoBean.acaoAbrirInclusao}" immediate="true"
 				image="ui-icon-document"></p:commandButton>
@@ -48,23 +48,11 @@
 							<f:param value="#{forma.id}" name="itemId" />
 						</p:commandButton>
 
-						<p:commandButton type="button" value="Excluir">
-							<p:confirm header="Confirmação"
-								message="Deseja excluir este registro?" icon="ui-icon-alert" />
+						<p:commandButton ajax="false" type="push" value="Excluir"
+							action="#{formaPagamentoBean.acaoExcluir}"
+							immediate="true" image="ui-icon-trash">
+							<f:param value="#{forma.id}" name="itemId" />
 						</p:commandButton>
-
-						<p:confirmDialog showEffect="bounce" hideEffect="explode"
-							global="true">
-
-							<p:commandButton value="Sim" type="button" ajax="false" 
-								styleClass="ui-confirmdialog-yes" icon="ui-icon-check"
-								immediate="true" action="#{formaPagamentoBean.acaoExcluir}">
-								<f:param value="#{forma.id}" name="itemId" />
-							</p:commandButton>
-
-							<p:commandButton value="Não" type="button"
-								styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-						</p:confirmDialog>
 
 					</h:panelGroup>
 				</p:column>
@@ -72,6 +60,7 @@
 			</p:dataTable>
 
 		</h:form>
+
 	</ui:define>
 </ui:composition>
 </html>

@@ -15,15 +15,18 @@
 			<h:inputHidden id="idForma" value="#{formaPagamentoBean.forma.id}" />
 			<h:panelGrid columns="2">
 				<h:outputLabel value="Nome: " for="nome" />
-				<p:inputText id="nome"
-					value="#{formaPagamentoBean.forma.nome}" />
+				<p:inputText id="nome" value="#{formaPagamentoBean.forma.nome}" />
 
 				<h:outputLabel value="Descrição: " for="descricao" />
 				<p:inputText id="descricao"
 					value="#{formaPagamentoBean.forma.descricao}" />
 
 
-				<h:commandButton action="#{formaPagamentoBean.gravar}"
+				<p:commandButton value="Voltar" ajax="false"
+					action= "#{FormaPagamentoBean. acaoAbrirListagem}"
+					onclick="this.form.target='_self'"></p:commandButton>
+
+				<p:commandButton action="#{formaPagamentoBean.gravar}"
 					value="Salvar" />
 			</h:panelGrid>
 		</h:form>
