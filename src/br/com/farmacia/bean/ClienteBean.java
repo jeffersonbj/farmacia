@@ -9,7 +9,6 @@ import javax.faces.bean.RequestScoped;
 
 import br.com.farmacia.dao.DAO;
 import br.com.farmacia.modelo.Cliente;
-import br.com.farmacia.modelo.FormaPagamento;
 import br.com.farmacia.util.JSFUtil;
 
 @ManagedBean

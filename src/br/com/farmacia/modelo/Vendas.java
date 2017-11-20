@@ -20,10 +20,6 @@ public class Vendas {
 	@JoinColumn(name = "funcionarioId")
 	private Funcionario funcionario;
 	
-	@ManyToOne
-	@JoinColumn(name = "cargoId")
-	private Cargo cargo;
-
 	public int getCodigoProduto() {
 		return codigoProduto;
 	}
@@ -64,15 +60,6 @@ public class Vendas {
 		this.funcionario = funcionario;
 	}
 
-	public Cargo getCargo() {
-		return cargo;
-	}
-
-	public void setCargo(Cargo cargo) {
-		this.cargo = cargo;
-	}
-	
-	
 	
 	
 

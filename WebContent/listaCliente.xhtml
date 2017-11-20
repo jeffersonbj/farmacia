@@ -7,15 +7,11 @@
 	xmlns:p="http://primefaces.org/ui">
 
 
-<ui:composition template="_template.xhtml">
-	<ui:define name="titulo">Clientes</ui:define>
-	<ui:define name="conteudo">
 
 		<h:form>
 			<p:commandButton value="Novo Cliente" ajax="false" immediate="true"
-				image="ui-icon-document"
-				action="#{clienteBean.acaoAbrirInclusao}" ></p:commandButton>
-		
+				image="ui-icon-document" action="#{clienteBean.acaoAbrirInclusao}"></p:commandButton>
+
 			<p:dataTable id="tabelaClientes" value="#{clienteBean.clientes}"
 				var="cliente" paginator="true" rows="15"
 				rowsPerPageTemplate="10,25,50"
@@ -35,7 +31,7 @@
 					<f:facet name="header">Telefone</f:facet>
 					<h:outputText value="#{cliente.telefone}" />
 				</p:column>
-				
+
 				<p:column>
 					<f:facet name="header">
 						<h:outputText value="Ações" />
@@ -47,18 +43,30 @@
 							<f:param value="#{cliente.id}" name="itemId" />
 						</p:commandButton>
 
-						<p:commandButton   ajax="false" type="push" value="Excluir"
-							action="#{clienteBean.acaoExcluir}"
-							immediate="true" image="ui-icon-trash">
-							<f:param value="#{cliente.id}" name="itemId" />
+
+						<p:commandButton type="button" value="Excluir"
+							onclick="PF('conf#{cliente.id}').show()" image="ui-icon-close">
 						</p:commandButton>
 
+						<p:confirmDialog message="Deseja excluir este registro?"
+							showEffect="bounce" hideEffect="explode"
+							header="Confirmação de Exclusão" severity="alert"
+							widgetVar="conf#{cliente.id}">
+
+							<p:commandButton ajax="false" type="push" value="Sim"
+								action="#{clienteBean.acaoExcluir}" immediate="true"
+								image="ui-icon-check">
+								<f:param value="#{cliente.id}" name="itemId" />
+							</p:commandButton>
+
+							<p:commandButton value="Não"
+								onclick="PF('conf#{cliente.id}').hide()" type="button"
+								image="ui-icon-close" />
+						</p:confirmDialog>
 					</h:panelGroup>
 				</p:column>
 
 			</p:dataTable>
 
 		</h:form>
-	</ui:define>
-</ui:composition>
 </html>

@@ -11,6 +11,7 @@
 	<ui:define name="titulo">Novo Produto</ui:define>
 	<ui:define name="conteudo">
 		<h:form>
+			<h:inputHidden id="idProduto" value="#{produtoBean.produto.id}" />
 			<fieldset>
 				<legend>Dados do Produto</legend>
 				<h:panelGrid columns="2">
@@ -31,11 +32,6 @@
 					<p:inputText id="quantidade"
 						value="#{produtoBean.produto.quantidade}" />
 
-						
-						<p:calendar value="#{produtoBean.produto.dataDaEntrada}"
-						pattern="dd/MM/yyyy" id="dataDaEntrada">
-					</p:calendar>
-
 					<h:outputLabel value="Valor do Produto" for="valorDoProduto" />
 					<p:inputText id="valorDoProduto"
 						value="#{produtoBean.produto.valorDoProduto}" />
@@ -43,7 +39,6 @@
 
 				</h:panelGrid>
 			</fieldset>
-
 
 			<p:commandButton value="Gravar" action="#{produtoBean.gravar}" />
 			<p:commandButton value="Voltar" ajax="false" action="listaProduto"
