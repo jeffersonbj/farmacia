@@ -15,18 +15,18 @@
 		<h:form>
 			<h3>Login</h3>
 			<h:outputText value="Nome " />
-			<p:inputText id="username" value="#{loginBean.user}" required="true"></p:inputText>
+			<p:inputText id="username" value="#{loginBean.login}" required="true"></p:inputText>
 			<h:message for="username"></h:message>
 			<br></br>
 			<br></br>
 
 			<h:outputText value="Senha " />
-			<p:password id="password" value="#{loginBean.pwd}"></p:password>
+			<p:password id="password" value="#{loginBean.senha}" required="true"></p:password>
 			<h:message for="password"></h:message>
 			<br></br>
 			<br></br>
 
-			<p:commandButton action="#{loginBean.validateUsernamePassword}"
+			<p:commandButton action="#{loginBean.validarLogin}"
 				value="Login"></p:commandButton>
 		</h:form>
 	</div>

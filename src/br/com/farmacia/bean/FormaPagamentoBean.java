@@ -2,11 +2,7 @@ package br.com.farmacia.bean;
 
 import java.util.List;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
-import javax.faces.bean.ViewScoped;
-
 import br.com.farmacia.dao.DAO;
-import br.com.farmacia.modelo.Cliente;
 import br.com.farmacia.modelo.FormaPagamento;
 import br.com.farmacia.util.JSFUtil;
 

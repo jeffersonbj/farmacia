@@ -7,7 +7,7 @@ import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
 import br.com.farmacia.modelo.Funcionario;
 
-public class Autorizador implements PhaseListener {
+public class Autorizador2 implements PhaseListener {
 
 	private static final long serialVersionUID = 1L;
 
@@ -25,7 +25,6 @@ public class Autorizador implements PhaseListener {
 
 		Funcionario usuarioLogado = (Funcionario) context.getExternalContext().getSessionMap().get("usuarioLogado");
 
-		/*
 		if (usuarioLogado != null) {
 			return;
 		}
@@ -34,7 +33,6 @@ public class Autorizador implements PhaseListener {
 		NavigationHandler handler = context.getApplication().getNavigationHandler();
 		handler.handleNavigation(context, null, "/login?faces-redirect=true");
 		context.renderResponse();
-		*/
 	}
 
 	@Override

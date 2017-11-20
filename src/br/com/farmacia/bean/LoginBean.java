@@ -6,11 +6,8 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpSession;
 import br.com.farmacia.dao.FuncionarioDAO;
 import br.com.farmacia.modelo.Funcionario;
-import br.com.farmacia.modelo.Usuario;
-import br.com.farmacia.util.SessionUtil;
 
 @ManagedBean
 @SessionScoped

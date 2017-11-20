@@ -1,12 +1,10 @@
 package br.com.farmacia.modelo;
 
-import java.util.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 
 @Entity
@@ -24,7 +22,7 @@ public class Funcionario {
 	private String login;
 	private String senha;
 	
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(name = "cargoId")
 	private Cargo cargo;
 	public int getId() {

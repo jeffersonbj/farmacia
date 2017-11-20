@@ -3,7 +3,6 @@ package br.com.farmacia.bean;
 import javax.faces.bean.ManagedBean;
 
 import br.com.farmacia.dao.DAO;
-import br.com.farmacia.modelo.Cliente;
 import br.com.farmacia.modelo.Pessoa;
 
 @ManagedBean
