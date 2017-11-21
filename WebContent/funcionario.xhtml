@@ -44,8 +44,10 @@
 
 
 					<h:outputLabel value="Cargo" for="cargo" />
-					<p:inputText id="cargo"
-						value="#{funcionarioBean.funcionario.cargo}" />
+					<p:selectOneMenu value="#{funcionarioBean.cargoId}">
+						<f:selectItems value="#{funcionarioBean.cargos}" var="cargo" itemLabel="#{cargo.nome}" itemValue="#{cargo.id}"></f:selectItems>
+						
+					</p:selectOneMenu>
 
 
 				</h:panelGrid>

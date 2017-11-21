@@ -8,6 +8,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
 import br.com.farmacia.dao.DAO;
+import br.com.farmacia.modelo.Cargo;
 import br.com.farmacia.modelo.Funcionario;
 import br.com.farmacia.util.JSFUtil;
 
@@ -17,14 +18,29 @@ public class FuncionarioBean {
 
 	private Funcionario funcionario = new Funcionario();
 	private List<Funcionario> funcionarios = null;
-
+	private List<Cargo> cargos = null;
+	private int cargoId = 0;
+	
 	public Funcionario getFuncionario() {
 		return funcionario;
 	}
 
+	public void setCargoId(int cargoId){
+		this.cargoId = cargoId;
+	}
+	
+	public int getCargoId(){
+		return this.cargoId;
+	}
+	
 	public String gravar() {
 		System.out.println("Atualizando Funcionarios: " + this.funcionario.getId());
-
+		
+		if(this.cargoId > 0){
+			System.out.println("CARGO ID: " + this.cargoId);
+			this.funcionario.setCargo(new DAO<Cargo>(Cargo.class).buscaPorId(cargoId));
+		}
+		
 		if (this.funcionario.getId() > 0) {
 			new DAO<Funcionario>(Funcionario.class).atualiza(this.funcionario);
 		} else {
@@ -45,6 +61,13 @@ public class FuncionarioBean {
 		return this.funcionarios;
 	}
 
+	public List<Cargo> getCargos() {
+		if (this.cargos == null) {
+			this.cargos = new DAO<Cargo>(Cargo.class).listaTodos();
+		}
+		return this.cargos;
+	}
+	
 	public String convertStringToDate(Date indate) {
 		String dateString = null;
 		SimpleDateFormat sdfr = new SimpleDateFormat("dd/MMM/yyyy");
