@@ -7,7 +7,7 @@
 	xmlns:p="http://primefaces.org/ui">
 
 
-<ui:composition template="_template.xhtml">
+<ui:composition template="../_template.xhtml">
 	<ui:define name="titulo">Produtos</ui:define>
 	<ui:define name="conteudo">
 
@@ -23,7 +23,7 @@
 				selection="#{produtoBean.produto}" rowKey="#{produto.id}">
 
 				<f:facet name="header">
-					<h:outputText value="Lista de produtos Cadastrados:" />
+					<h:outputText value="Lista de Produtos Cadastrados:" />
 				</f:facet>
 
 				<p:column>

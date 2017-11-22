@@ -80,7 +80,9 @@ public class Funcionario {
 		this.cargo = cargo;
 	}
 	
-	
+	public boolean ehGerente(){
+		return this.getCargo().getNome().toUpperCase().equals("gerente".toUpperCase());
+	}
 	
 
 }

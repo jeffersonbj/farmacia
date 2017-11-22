@@ -1,0 +1,3 @@
+-Testar todas as páginas
+-Alterar o texto de Novo para Alterar, quando estiver alterando algum elemento
+-Corrigir mensagens de erros...(Não funciona)

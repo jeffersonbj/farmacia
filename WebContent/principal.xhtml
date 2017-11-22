@@ -4,13 +4,15 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
+
+
 <ui:composition template="_template.xhtml">
 
 	<ui:define name="titulo">Farmacia</ui:define>
 	<ui:define name="conteudo">
 
 		<h:form>
-			<h1>Bem Vindo</h1>
+			<h1>Bem Vindo, #{principalBean.nomeUserLogado}.</h1>
 		</h:form>
 	</ui:define>
 </ui:composition>

@@ -18,6 +18,24 @@ public class LoginBean implements Serializable {
 	private String senha;
 	private String msg;
 	private String login;
+	private boolean gerente;
+	private Integer idUsuarioLogado;
+	
+	public Integer getIdUsuarioLogado() {
+		return idUsuarioLogado;
+	}
+
+	public void setIdUsuarioLogado(Integer idUsuarioLogado) {
+		this.idUsuarioLogado = idUsuarioLogado;
+	}
+
+	public boolean isGerente() {
+		return gerente;
+	}
+
+	public void setGerente(boolean gerente) {
+		this.gerente = gerente;
+	}
 
 	public String getSenha() {
 		return senha;
@@ -42,7 +60,7 @@ public class LoginBean implements Serializable {
 	public void setLogin(String login) {
 		this.login = login;
 	}
-
+	
 	// Validar Login
 	public String validarLogin() {
 		Funcionario funcionario = FuncionarioDAO.validate(login, senha);
@@ -51,6 +69,10 @@ public class LoginBean implements Serializable {
 			FacesContext context = FacesContext.getCurrentInstance();
 			context.getExternalContext().getSessionMap().put("usuarioLogado", funcionario);
 		
+			if(funcionario.getCargo().getNome().toUpperCase().equals("gerente".toUpperCase())){
+				this.gerente = true;
+			}
+			
 			return "principal?faces-redirect=true";
 		} else {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
@@ -65,4 +87,6 @@ public class LoginBean implements Serializable {
 		context.getExternalContext().invalidateSession();
 		return "login?faces-redirect=true";
 	}
+	
+	
 }

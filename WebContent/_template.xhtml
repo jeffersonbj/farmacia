@@ -18,12 +18,12 @@
 		<p:growl id="messages" />
 
 		<p:menubar>
-			<p:menuitem value="Cliente" url="listaCliente.xhtml" icon="ui-icon-document"/>
-			<p:menuitem value="Produto" url="listaProduto.xhtml" icon="ui-icon-document"/>
-			<p:menuitem value="Forma de Pagamento" url="listaFormaPagamento.xhtml" icon="fa fa-money"/>
-			<p:menuitem value="Funcionário" url="listaFuncionario.xhtml" icon="ui-icon-document"/>
-		
-
+			<p:menuitem value="Cliente" url="/public/listaCliente.xhtml" icon="ui-icon-document"/>
+			<p:menuitem value="Produto" url="/public/listaProduto.xhtml" icon="ui-icon-document"/>
+			<p:menuitem value="Forma de Pagamento" url="/public/listaFormaPagamento.xhtml" icon="fa fa-money"/>
+			<p:menuitem value="Funcionário" url="/listaFuncionario.xhtml" icon="ui-icon-document" rendered="#{loginBean.gerente}"/>
+			<p:menuitem value="Cargos" url="/listaCargo.xhtml" icon="ui-icon-document" rendered="#{loginBean.gerente}"/>
+			
 			<f:facet name="options">
 				<p:commandButton  value="Sair" icon="ui-icon-extlink" action="#{loginBean.logout}"/>
 			</f:facet>
