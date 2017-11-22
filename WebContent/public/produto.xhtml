@@ -12,6 +12,9 @@
 	<ui:define name="conteudo">
 		<h:form>
 			<h:inputHidden id="idProduto" value="#{produtoBean.produto.id}" />
+			<h:inputHidden id="dataDaEntradaProduto" value="#{produtoBean.produto.dataDaEntrada}" >
+				<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"></f:convertDateTime>
+			</h:inputHidden>
 			<fieldset>
 				<legend>Dados do Produto</legend>
 				<h:panelGrid columns="2">

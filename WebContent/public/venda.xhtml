@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition template="../_template.xhtml">
+
+
+	<ui:define name="conteudo">
+		<h:form>
+			<h:inputHidden id="idCliente" value="#{vendaBean.venda.id}" />
+			<fieldset>
+				<legend>Pedido</legend>
+				<h:panelGrid columns="2">
+
+					<p:dataTable var="produto" value="#{vendaBean.produtos}"
+						selection="#{vendaBean.produtosSelecionados}"
+						rowKey="#{produto.id}" widgetVar="produtoTabela"
+						emptyMessage="Sem produtos para serem exibidos"
+						filteredValue="#{vendaBean.produtosFiltrado}"
+						style="margin-bottom:0;">
+
+						<f:facet name="header">
+							<p:outputPanel>
+								<h:outputText value="Pesquise " />
+								<p:inputText id="globalFilter"
+									onkeyup="PF('produtoTabela').filter()" style="width:150px"
+									placeholder="Digite..." />
+							</p:outputPanel>
+						</f:facet>
+						<p:column selectionMode="multiple"
+							style="width:16px;text-align:center" />
+						<p:column filterBy="#{produto.codigoDoProduto}"
+							headerText="Código" filterMatchMode="contains">
+							<h:outputText value="#{produto.codigoDoProduto}" />
+						</p:column>
+						<p:column filterBy="#{produto.nome}" headerText="Nome"
+							filterMatchMode="contains">
+							<h:outputText value="#{produto.nome}" />
+						</p:column>
+						<p:column filterBy="#{produto.valorDoProduto}" headerText="Valor"
+							filterMatchMode="contains">
+							<h:outputText value="#{produto.valorDoProduto}" />
+						</p:column>
+
+						<f:facet name="footer">
+							<p:commandButton  icon="ui-icon-plus"
+								value="Adicionar" />
+						</f:facet>
+					</p:dataTable>
+
+				</h:panelGrid>
+			</fieldset>
+
+
+			<p:commandButton value="Gravar" action="#{vendaBean.gravar}" />
+			<p:commandButton value="Voltar" ajax="false"
+				action="#{vendaBean.acaoAbrirListagem}"></p:commandButton>
+		</h:form>
+	</ui:define>
+</ui:composition>
+
+</html>

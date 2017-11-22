@@ -13,7 +13,7 @@
 		<class>br.com.farmacia.modelo.Produto</class>
 		<class>br.com.farmacia.modelo.Cargo</class>
 		<class>br.com.farmacia.modelo.Funcionario</class>
-		<class>br.com.farmacia.modelo.Vendas</class>
+		<class>br.com.farmacia.modelo.Venda</class>
 		<class>br.com.farmacia.modelo.FormaPagamento</class>
 		
 		<properties>

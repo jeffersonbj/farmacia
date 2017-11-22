@@ -27,12 +27,7 @@ public class ProdutoBean {
 		return this.produtos;
 	}
 
-	public String gravar() {
-		System.out.println("Gravando Produto " + this.produto.getNome());
-		System.out.println("Gravando Produto  Código do Produto " + this.produto.getCodigoDoProduto());
-		System.out.println("Gravando Produto  quantidade " + this.produto.getQuantidade());
-		System.out.println("Gravando Produto valor do Produto " + this.produto.getValorDoProduto());
-
+	public String gravar() {		
 		if (this.produto.getId() > 0) {
 			new DAO<Produto>(Produto.class).atualiza(this.produto);
 		} else {
@@ -43,22 +38,6 @@ public class ProdutoBean {
 		this.produto = new Produto();
 		return "listaProduto.xhtml";
 
-	}
-
-	public String convertStringToDate(Date indate) {
-		String dateString = null;
-		SimpleDateFormat sdfr = new SimpleDateFormat("dd/MMM/yyyy");
-
-		/*
-		 * you can also use DateFormat reference instead of SimpleDateFormat
-		 * like this: DateFormat df = new SimpleDateFormat("dd/MMM/yyyy");
-		 */
-		try {
-			dateString = sdfr.format(indate);
-		} catch (Exception ex) {
-			System.out.println(ex);
-		}
-		return dateString;
 	}
 	
 	public String acaoAbrirInclusao() {

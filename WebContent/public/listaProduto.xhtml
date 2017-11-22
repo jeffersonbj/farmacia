@@ -48,7 +48,9 @@
 				
 				<p:column>
 					<f:facet name="header">Data Da Entrada</f:facet>
-					<h:outputText value="#{produto.dataDaEntrada}" />
+					<h:outputText value="#{produto.dataDaEntrada}" >
+						<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"></f:convertDateTime>
+					</h:outputText>
 				</p:column>
 				
 				<p:column>

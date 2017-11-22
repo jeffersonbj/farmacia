@@ -18,9 +18,10 @@
 		<p:growl id="messages" />
 
 		<p:menubar>
+			<p:menuitem value="Pedidos" url="/public/listaVenda.xhtml" icon="ui-icon-document"/>
 			<p:menuitem value="Cliente" url="/public/listaCliente.xhtml" icon="ui-icon-document"/>
 			<p:menuitem value="Produto" url="/public/listaProduto.xhtml" icon="ui-icon-document"/>
-			<p:menuitem value="Forma de Pagamento" url="/public/listaFormaPagamento.xhtml" icon="fa fa-money"/>
+			<p:menuitem value="Forma de Pagamento" url="/public/listaFormaPagamento.xhtml" icon="ui-icon-document"/>
 			<p:menuitem value="Funcionário" url="/listaFuncionario.xhtml" icon="ui-icon-document" rendered="#{loginBean.gerente}"/>
 			<p:menuitem value="Cargos" url="/listaCargo.xhtml" icon="ui-icon-document" rendered="#{loginBean.gerente}"/>
 			

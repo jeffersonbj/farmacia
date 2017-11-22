@@ -15,7 +15,7 @@ public class Produto {
 	@GeneratedValue
 	private int id;
 	private String nome;
-	private Integer codigoDoProduto;
+	private String codigoDoProduto;
 	private String descricaoDoProduto;
 	private int quantidade;
 	private Date dataDaEntrada;
@@ -37,11 +37,11 @@ public class Produto {
 		this.nome = nome;
 	}
 
-	public Integer getCodigoDoProduto() {
+	public String getCodigoDoProduto() {
 		return codigoDoProduto;
 	}
 
-	public void setCodigoDoProduto(Integer codigoDoProduto) {
+	public void setCodigoDoProduto(String codigoDoProduto) {
 		this.codigoDoProduto = codigoDoProduto;
 	}
 
