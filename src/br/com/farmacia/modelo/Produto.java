@@ -1,16 +1,20 @@
 package br.com.farmacia.modelo;
 
+import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 @Entity
-public class Produto {
+public class Produto implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue
 	private int id;
@@ -20,15 +24,21 @@ public class Produto {
 	private int quantidade;
 	private Date dataDaEntrada;
 	private float valorDoProduto;
+	
+	@Transient
+	private int quantidadeVenda;
+	
+	@OneToMany(mappedBy = "produto")
+	private Set<VendaProduto> vendaProduto;
 
 	public int getId() {
 		return id;
 	}
-	
+
 	public void setId(int id) {
 		this.id = id;
 	}
-	
+
 	public String getNome() {
 		return nome;
 	}
@@ -75,6 +85,22 @@ public class Produto {
 
 	public void setValorDoProduto(float valorDoProduto) {
 		this.valorDoProduto = valorDoProduto;
+	}
+	
+	public Set<VendaProduto> getVendaProduto() {
+		return vendaProduto;
+	}
+
+	public void setVendaProduto(Set<VendaProduto> vendaProduto) {
+		this.vendaProduto = vendaProduto;
+	}
+
+	public int getQuantidadeVenda() {
+		return quantidadeVenda;
+	}
+
+	public void setQuantidadeVenda(int quantidadeVenda) {
+		this.quantidadeVenda = quantidadeVenda;
 	}
 
 }

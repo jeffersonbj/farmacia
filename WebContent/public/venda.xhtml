@@ -11,30 +11,63 @@
 
 	<ui:define name="conteudo">
 		<h:form>
-			<h:inputHidden id="idCliente" value="#{vendaBean.venda.id}" />
-			<fieldset>
-				<legend>Pedido</legend>
-				<h:panelGrid columns="2">
+			<p:fieldset legend="Dados do Pedido">
+				<h:inputHidden id="idCliente" value="#{vendaBean.venda.id}" />
 
+				<p:messages autoUpdate="true" showDetail="true"></p:messages>
+				<h:panelGrid columns="2" layout="grid" id="panelDados">
+
+					<p:outputLabel value="Cliente:" for="cliente" />
+					<h:panelGroup>
+						<p:inputText id="cliente" value="#{vendaBean.nomeCliente}"
+							readonly="#{facesContext.currentPhaseId eq 'RENDER_RESPONSE 6'}"
+							required="true" requiredMessage="Cliente obrigatório" size="24" />
+						<p:spacer width="10px" />
+						<p:commandButton icon="ui-icon-search" title="Pesquisa"
+							action="#{selecaoClienteBean.abrirDialogo}" process="@this"
+							update="@none">
+							<p:ajax event="dialogReturn"
+								listener="#{vendaBean.clienteSelecionado}" process="@this"
+								update="cliente"></p:ajax>
+							<p:resetInput target="cliente"></p:resetInput>
+						</p:commandButton>
+					</h:panelGroup>
+
+
+					<p:outputLabel value="Forma de pagamento:" for="forma" />
+					<p:selectOneMenu value="#{vendaBean.formaPagamentoId}" id="forma"
+						validatorMessage="Selecione uma forma de pagamento"
+						required="true">
+						<p:ajax listener="#{vendaBean.onFormaChange}" update="@none" />
+						<f:selectItems value="#{vendaBean.formasPagamento}" var="forma"
+							itemLabel="#{forma.nome}" itemValue="#{forma.id}"></f:selectItems>
+						<f:validateLongRange minimum="1"></f:validateLongRange>
+					</p:selectOneMenu>
+
+				</h:panelGrid>
+
+				<h:panelGrid columns="2">
 					<p:dataTable var="produto" value="#{vendaBean.produtos}"
 						selection="#{vendaBean.produtosSelecionados}"
 						rowKey="#{produto.id}" widgetVar="produtoTabela"
 						emptyMessage="Sem produtos para serem exibidos"
-						filteredValue="#{vendaBean.produtosFiltrado}"
-						style="margin-bottom:0;">
+						filteredValue="#{vendaBean.produtosFiltrado}" rows="5"
+						paginator="true" id="produtosDT" editable="true" editMode="cell"
+						paginatorPosition="bottom">
 
 						<f:facet name="header">
-							<p:outputPanel>
-								<h:outputText value="Pesquise " />
+							<p:outputPanel style="text-align:right;">
+								<h:outputText value="Buscar por: " />
 								<p:inputText id="globalFilter"
-									onkeyup="PF('produtoTabela').filter()" style="width:150px"
-									placeholder="Digite..." />
+									onkeyup="PF('produtoTabela').filter()" style="width:200px"
+									placeholder="Nome, código, valor..." />
 							</p:outputPanel>
 						</f:facet>
 						<p:column selectionMode="multiple"
 							style="width:16px;text-align:center" />
 						<p:column filterBy="#{produto.codigoDoProduto}"
-							headerText="Código" filterMatchMode="contains">
+							style="width:200px;" headerText="Código"
+							filterMatchMode="contains">
 							<h:outputText value="#{produto.codigoDoProduto}" />
 						</p:column>
 						<p:column filterBy="#{produto.nome}" headerText="Nome"
@@ -42,23 +75,34 @@
 							<h:outputText value="#{produto.nome}" />
 						</p:column>
 						<p:column filterBy="#{produto.valorDoProduto}" headerText="Valor"
-							filterMatchMode="contains">
-							<h:outputText value="#{produto.valorDoProduto}" />
+							filterFunction="#{vendaBean.filterByPrice}" style="width:200px;">
+							<h:outputText value="#{produto.valorDoProduto}">
+								<f:convertNumber currencySymbol="R$" type="currency" />
+							</h:outputText>
+						</p:column>
+						<p:column headerText="Quantidade" filterable="false"
+							style="width:150px; text-align:center;">
+							<p:cellEditor>
+								<f:facet name="output">
+									<h:outputText value="#{produto.quantidadeVenda}" />
+								</f:facet>
+								<f:facet name="input">
+									<p:inputText id="modelInput" value="#{produto.quantidadeVenda}"
+										style="width:100%" />
+								</f:facet>
+							</p:cellEditor>
 						</p:column>
 
-						<f:facet name="footer">
-							<p:commandButton  icon="ui-icon-plus"
-								value="Adicionar" />
-						</f:facet>
+						<p:ajax event="rowSelectCheckbox" />
 					</p:dataTable>
 
+
 				</h:panelGrid>
-			</fieldset>
-
-
-			<p:commandButton value="Gravar" action="#{vendaBean.gravar}" />
+			</p:fieldset>
+			<p:commandButton value="Finalizar Pedido"
+				action="#{vendaBean.gravar}" />
 			<p:commandButton value="Voltar" ajax="false"
-				action="#{vendaBean.acaoAbrirListagem}"></p:commandButton>
+				action="#{vendaBean.acaoAbrirListagem}" immediate="true"></p:commandButton>
 		</h:form>
 	</ui:define>
 </ui:composition>

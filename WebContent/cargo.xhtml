@@ -12,21 +12,21 @@
 	<ui:define name="conteudo">
 		<h:form>
 			<h:inputHidden id="idCargo" value="#{cargoBean.cargo.id}" />
-			<fieldset>
-				<legend>Dados de Cargo</legend>
+			<p:fieldset legend="Dados de Cargo">
+				<p:messages autoUpdate="true"></p:messages>
 				<h:panelGrid columns="2">
 
 					<h:outputLabel value="Nome:" for="nome" />
-					<p:inputText id="nome" value="#{cargoBean.cargo.nome}" />
+					<p:inputText id="nome" value="#{cargoBean.cargo.nome}" required="true" requiredMessage="Nome obrigatório"/>
 
 					<h:outputLabel value="Descrição:" for="descricao" />
 					<p:inputTextarea id="descricao" value="#{cargoBean.cargo.descricao}" />
 				</h:panelGrid>
-			</fieldset>
+			</p:fieldset>
 
 
 			<p:commandButton value="Gravar" action="#{cargoBean.gravar}" />
-			<p:commandButton value="Voltar" ajax="false" action="#{cargoBean.acaoAbrirListagem}"></p:commandButton>
+			<p:commandButton value="Voltar" ajax="false" action="#{cargoBean.acaoAbrirListagem}" immediate="true"></p:commandButton>
 		</h:form>
 	</ui:define>
 </ui:composition>

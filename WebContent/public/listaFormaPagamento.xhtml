@@ -18,10 +18,10 @@
 
 			<p:dataTable id="tabelaFormaPagamento"
 				value="#{formaPagamentoBean.formas}" var="forma" paginator="true"
-				rows="15" rowsPerPageTemplate="10,25,50"
+				rows="10" rowsPerPageTemplate="10,25,50"
 				rendered="#{not empty formaPagamentoBean.formas}"
 				selectionMode="single" selection="#{formaPagamentoBean.forma}"
-				rowKey="#{forma.id}">
+				rowKey="#{forma.id}" paginatorPosition="bottom">
 
 				<f:facet name="header">
 					<h:outputText value="Lista de Formas de Pagamentos:" />
@@ -48,11 +48,25 @@
 							<f:param value="#{forma.id}" name="itemId" />
 						</p:commandButton>
 
-						<p:commandButton ajax="false" type="push" value="Excluir"
-							action="#{formaPagamentoBean.acaoExcluir}" immediate="true"
-							image="ui-icon-trash">
-							<f:param value="#{forma.id}" name="itemId" />
+						<p:commandButton type="button" value="Excluir"
+							onclick="PF('conf#{forma.id}').show()" image="ui-icon-close">
 						</p:commandButton>
+
+						<p:confirmDialog message="Deseja excluir este registro?"
+							showEffect="bounce" hideEffect="explode"
+							header="Confirmação de Exclusão" severity="alert"
+							widgetVar="conf#{forma.id}">
+
+							<p:commandButton ajax="false" type="push" value="Sim"
+								action="#{formaPagamentoBean.acaoExcluir}" immediate="true"
+								image="ui-icon-check">
+								<f:param value="#{forma.id}" name="itemId" />
+							</p:commandButton>
+
+							<p:commandButton value="Não"
+								onclick="PF('conf#{forma.id}').hide()" type="button"
+								image="ui-icon-close" />
+						</p:confirmDialog>
 
 					</h:panelGroup>
 				</p:column>

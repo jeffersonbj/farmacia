@@ -12,40 +12,48 @@
 	<ui:define name="conteudo">
 		<h:form>
 			<h:inputHidden id="idProduto" value="#{produtoBean.produto.id}" />
-			<h:inputHidden id="dataDaEntradaProduto" value="#{produtoBean.produto.dataDaEntrada}" >
+			<h:inputHidden id="dataDaEntradaProduto"
+				value="#{produtoBean.produto.dataDaEntrada}">
 				<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"></f:convertDateTime>
 			</h:inputHidden>
-			<fieldset>
-				<legend>Dados do Produto</legend>
+			<p:fieldset legend="Dados do Produto">
+				
+				<p:messages autoUpdate="true"></p:messages>
 				<h:panelGrid columns="2">
 
-					<h:outputLabel value="Nome:" for="nome" />
-					<p:inputText id="nome" value="#{produtoBean.produto.nome}" />
+					<p:outputLabel value="Nome:" for="nome" />
+					<p:inputText id="nome" value="#{produtoBean.produto.nome}"
+						required="true" requiredMessage="Nome obrigatório." />
 
-					<h:outputLabel value="Código do Produto" for="codigoDoProduto" />
+					<p:outputLabel value="Código: " for="codigoDoProduto" />
 					<p:inputText id="codigoDoProduto"
-						value="#{produtoBean.produto.codigoDoProduto}" />
+						value="#{produtoBean.produto.codigoDoProduto}" required="true"
+						requiredMessage="Código obrigatório." />
 
-					<h:outputLabel value="Descrição do Produto:"
-						for="descricaoDoProduto" />
-					<p:inputText id="descricaoDoProduto"
-						value="#{produtoBean.produto.descricaoDoProduto}" />
 
-					<h:outputLabel value="Quantidade:" for="quantidade" />
+					<p:outputLabel value="Quantidade:" for="quantidade" />
 					<p:inputText id="quantidade"
-						value="#{produtoBean.produto.quantidade}" />
+						value="#{produtoBean.produto.quantidade}" required="true"
+						validatorMessage="Quantidade tem que ser maior que 0.">
+						<f:validateDoubleRange minimum="1"></f:validateDoubleRange>
+					</p:inputText>
 
-					<h:outputLabel value="Valor do Produto" for="valorDoProduto" />
+					<p:outputLabel value="Valor: " for="valorDoProduto" />
 					<p:inputText id="valorDoProduto"
-						value="#{produtoBean.produto.valorDoProduto}" />
+						value="#{produtoBean.produto.valorDoProduto}" required="true"
+						validatorMessage="Valor do produto tem que ser maior que 0.">
+						<f:validateDoubleRange minimum="0.01"></f:validateDoubleRange>
+					</p:inputText>
 
-
+					<p:outputLabel value="Descrição:" for="descricaoDoProduto" />
+					<p:inputTextarea id="descricaoDoProduto"
+						value="#{produtoBean.produto.descricaoDoProduto}" />
 				</h:panelGrid>
-			</fieldset>
+			</p:fieldset>
 
 			<p:commandButton value="Gravar" action="#{produtoBean.gravar}" />
-			<p:commandButton value="Voltar" ajax="false" action="listaProduto"
-				onclick="this.form.target='_self'"></p:commandButton>
+			<p:commandButton value="Voltar"
+				action="#{produtoBean.acaoAbrirListagem}" immediate="true"></p:commandButton>
 		</h:form>
 	</ui:define>
 </ui:composition>

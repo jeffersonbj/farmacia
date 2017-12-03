@@ -67,22 +67,6 @@ public class FuncionarioBean {
 		}
 		return this.cargos;
 	}
-	
-	public String convertStringToDate(Date indate) {
-		String dateString = null;
-		SimpleDateFormat sdfr = new SimpleDateFormat("dd/MMM/yyyy");
-
-		/*
-		 * you can also use DateFormat reference instead of SimpleDateFormat
-		 * like this: DateFormat df = new SimpleDateFormat("dd/MMM/yyyy");
-		 */
-		try {
-			dateString = sdfr.format(indate);
-		} catch (Exception ex) {
-			System.out.println(ex);
-		}
-		return dateString;
-	}
 
 	public String acaoAbrirAlteracao() {
 

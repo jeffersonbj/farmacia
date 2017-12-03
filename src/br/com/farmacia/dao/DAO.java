@@ -28,7 +28,7 @@ public class DAO<T> {
 
 		// commita a transacao
 		em.getTransaction().commit();
-
+		
 		// fecha a entity manager
 		em.close();
 	}

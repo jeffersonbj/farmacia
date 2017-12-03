@@ -12,52 +12,62 @@
 	<ui:define name="conteudo">
 		<h:form>
 			<h:inputHidden id="idCliente" value="#{clienteBean.cliente.id}" />
-			<fieldset>
-				<legend>Dados do Cliente</legend>
+			<p:fieldset legend="Dados do Cliente">
+				<p:messages autoUpdate="true"></p:messages>
 				<h:panelGrid columns="2">
 
-					<h:outputLabel value="Nome:" for="nome" />
-					<p:inputText id="nome" value="#{clienteBean.cliente.nome}" />
+					<p:outputLabel value="Nome:" for="nome" />
+					<p:inputText id="nome" value="#{clienteBean.cliente.nome}"
+						required="true" requiredMessage="Nome Obrigatório" />
 
-					<h:outputLabel value="Telefone:" for="telefone" />
-					<p:inputText id="telefone" value="#{clienteBean.cliente.telefone}" />
+					<p:outputLabel value="Telefone:" for="telefone" />
+					<p:inputMask id="telefone" value="#{clienteBean.cliente.telefone}"
+						mask="(99) 9999-9999?9" required="true" requiredMessage="Telefone obrigatório."/>
 
-					<h:outputLabel value="Endereco:" for="endereco" />
-					<p:inputText id="endereco" value="#{clienteBean.cliente.endereco}" />
+					<p:outputLabel value="Endereço:" for="endereco" />
+					<p:inputText id="endereco" value="#{clienteBean.cliente.endereco}"
+						required="true" requiredMessage="Endereço obrigatório" />
 
-					<h:outputLabel value="Bairro:" for="bairro" />
-					<p:inputText id="bairro" value="#{clienteBean.cliente.bairro}" />
+					<p:outputLabel value="Bairro:" for="bairro" />
+					<p:inputText id="bairro" value="#{clienteBean.cliente.bairro}"
+						required="true" requiredMessage="Bairro obrigatório" />
 
-					<h:outputLabel value="Complemento:" for="complemento" />
+					<p:outputLabel value="Complemento:" for="complemento" />
 					<p:inputText id="complemento"
-						value="#{clienteBean.cliente.complemento}" />
+						value="#{clienteBean.cliente.complemento}" required="true"
+						requiredMessage="Complemento Obrigatório" />
 
-					<h:outputLabel value="Tipo:" for="tipo" />
-					<p:inputText id="tipo" value="#{clienteBean.cliente.tipo}" />
+					<p:outputLabel value="Tipo:" for="tipo" />
+					<p:inputText id="tipo" value="#{clienteBean.cliente.tipo}"
+						required="true" requiredMessage="Tipo obrigatório" />
 
-					<h:outputLabel value="DataDeNascimento:" for="dataDeNascimento" />
+					<p:outputLabel value="Data de Nascimento:" for="dataDeNascimento" />
 
 					<p:calendar value="#{clienteBean.cliente.dataDeNascimento}"
 						pattern="dd/MM/yyyy" id="dataDeNascimento">
 					</p:calendar>
 
-					<h:outputLabel value="NumResidencia:" for="numResidencia" />
+					<p:outputLabel value="Numero da Residência:" for="numResidencia" />
 					<p:inputText id="numResidencia"
-						value="#{clienteBean.cliente.numResidencia}" />
+						value="#{clienteBean.cliente.numResidencia}" required="true"
+						requiredMessage="Número da Residência obrigatório" />
 
-					<h:outputLabel value="PontoDeReferencia:" for="pontoDeReferencia" />
+					<p:outputLabel value="Ponto de Referência:" for="pontoDeReferencia" />
 					<p:inputText id="pontoDeReferencia"
 						value="#{clienteBean.cliente.pontoDeReferencia}" />
 
-					<h:outputLabel value="Cep:" for="cep" />
-					<p:inputText id="cep" value="#{clienteBean.cliente.cep}" />
+					<p:outputLabel value="Cep:" for="cep" />
+					<p:inputText id="cep" value="#{clienteBean.cliente.cep}"
+						required="true" requiredMessage="CEP obrigatório" />
 
 				</h:panelGrid>
-			</fieldset>
+			</p:fieldset>
 
 
-			<p:commandButton value="Gravar" action="#{clienteBean.gravar}" />
-			<p:commandButton value="Voltar" ajax="false" action="#{clienteBean.acaoAbrirListagem}"></p:commandButton>
+			<p:commandButton value="Gravar" 
+				action="#{clienteBean.gravar}" />
+			<p:commandButton value="Voltar" ajax="false"
+				action="#{clienteBean.acaoAbrirListagem}" immediate="true"></p:commandButton>
 		</h:form>
 	</ui:define>
 </ui:composition>

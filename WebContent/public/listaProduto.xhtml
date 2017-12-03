@@ -17,10 +17,10 @@
 				action="#{produtoBean.acaoAbrirInclusao}" ></p:commandButton>
 		
 			<p:dataTable id="tabelaProdutos" value="#{produtoBean.produtos}"
-				var="produto" paginator="true" rows="15"
+				var="produto" paginator="true" rows="10"
 				rowsPerPageTemplate="10,25,50"
 				rendered="#{not empty produtoBean.produtos}" selectionMode="single"
-				selection="#{produtoBean.produto}" rowKey="#{produto.id}">
+				selection="#{produtoBean.produto}" rowKey="#{produto.id}" paginatorPosition="bottom">
 
 				<f:facet name="header">
 					<h:outputText value="Lista de Produtos Cadastrados:" />
@@ -41,7 +41,7 @@
 					<h:outputText value="#{produto.descricaoDoProduto}" />
 				</p:column>
 				
-				<p:column>
+				<p:column style="width:100px;">
 					<f:facet name="header">Quantidade</f:facet>
 					<h:outputText value="#{produto.quantidade}" />
 				</p:column>
@@ -53,8 +53,8 @@
 					</h:outputText>
 				</p:column>
 				
-				<p:column>
-					<f:facet name="header">valor Do Produto</f:facet>
+				<p:column  style="width:100px;">
+					<f:facet name="header">Valor</f:facet>
 					<h:outputText value="#{produto.valorDoProduto}" />
 				</p:column>
 				
@@ -69,11 +69,25 @@
 							<f:param value="#{produto.id}" name="itemId" />
 						</p:commandButton>
 
-						<p:commandButton ajax="false" type="push" value="Excluir"
-							action="#{produtoBean.acaoExcluir}"
-							immediate="true" image="ui-icon-trash">
-							<f:param value="#{produto.id}" name="itemId" />
+						<p:commandButton type="button" value="Excluir"
+							onclick="PF('conf#{produto.id}').show()" image="ui-icon-close">
 						</p:commandButton>
+
+						<p:confirmDialog message="Deseja excluir este registro?"
+							showEffect="bounce" hideEffect="explode"
+							header="Confirmação de Exclusão" severity="alert"
+							widgetVar="conf#{produto.id}">
+
+							<p:commandButton ajax="false" type="push" value="Sim"
+								action="#{produtoBean.acaoExcluir}" immediate="true"
+								image="ui-icon-check">
+								<f:param value="#{produto.id}" name="itemId" />
+							</p:commandButton>
+
+							<p:commandButton value="Não"
+								onclick="PF('conf#{produto.id}').hide()" type="button"
+								image="ui-icon-close" />
+						</p:confirmDialog>
 
 					</h:panelGroup>
 				</p:column>

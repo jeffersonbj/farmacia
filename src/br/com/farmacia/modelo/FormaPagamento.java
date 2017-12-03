@@ -10,8 +10,17 @@ public class FormaPagamento {
 	@Id
 	@GeneratedValue
 	private int id;
-	private String Nome;
-	private String Descricao;
+	private String nome;
+	private String descricao;
+
+	public FormaPagamento() {
+	}
+	
+	public FormaPagamento(Integer id, String nome, String descricao){
+		this.id = id;
+		this.nome = nome;
+		this.descricao = descricao;
+	}
 
 	public int getId() {
 		return id;
@@ -22,19 +31,19 @@ public class FormaPagamento {
 	}
 
 	public String getNome() {
-		return Nome;
+		return nome;
 	}
 
 	public void setNome(String nome) {
-		Nome = nome;
+		this.nome = nome;
 	}
 
 	public String getDescricao() {
-		return Descricao;
+		return descricao;
 	}
 
 	public void setDescricao(String descricao) {
-		Descricao = descricao;
+		this.descricao = descricao;
 	}
 
 }

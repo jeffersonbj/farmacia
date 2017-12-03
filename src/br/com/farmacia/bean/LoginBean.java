@@ -1,10 +1,13 @@
 package br.com.farmacia.bean;
 
+import java.io.IOException;
 import java.io.Serializable;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import br.com.farmacia.dao.FuncionarioDAO;
 import br.com.farmacia.modelo.Funcionario;
@@ -20,7 +23,7 @@ public class LoginBean implements Serializable {
 	private String login;
 	private boolean gerente;
 	private Integer idUsuarioLogado;
-	
+
 	public Integer getIdUsuarioLogado() {
 		return idUsuarioLogado;
 	}
@@ -60,19 +63,19 @@ public class LoginBean implements Serializable {
 	public void setLogin(String login) {
 		this.login = login;
 	}
-	
+
 	// Validar Login
 	public String validarLogin() {
 		Funcionario funcionario = FuncionarioDAO.validate(login, senha);
-		
-		if (funcionario != null) {			
+
+		if (funcionario != null) {
 			FacesContext context = FacesContext.getCurrentInstance();
 			context.getExternalContext().getSessionMap().put("usuarioLogado", funcionario);
-		
-			if(funcionario.getCargo().getNome().toUpperCase().equals("gerente".toUpperCase())){
+
+			if (funcionario.getCargo().getNome().toUpperCase().equals("gerente".toUpperCase())) {
 				this.gerente = true;
 			}
-			
+
 			return "principal?faces-redirect=true";
 		} else {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
@@ -82,11 +85,18 @@ public class LoginBean implements Serializable {
 	}
 
 	// Invalidar Sessão
-	public String logout() {
-		FacesContext context = FacesContext.getCurrentInstance();
-		context.getExternalContext().invalidateSession();
-		return "login?faces-redirect=true";
+	/*
+	 * public String logout() { FacesContext context =
+	 * FacesContext.getCurrentInstance();
+	 * context.getExternalContext().invalidateSession(); return
+	 * "login?faces-redirect=true"; }
+	 */
+
+	public void logout() throws IOException {
+		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+
+		ec.invalidateSession();
+		ec.redirect(ec.getRequestContextPath() + "/login.xhtml");
 	}
-	
-	
+
 }

@@ -15,10 +15,10 @@
 				image="ui-icon-document" action="#{cargoBean.acaoAbrirInclusao}"></p:commandButton>
 
 			<p:dataTable id="tabelaCargos" value="#{cargoBean.cargos}"
-				var="cargo" paginator="true" rows="15"
+				var="cargo" paginator="true" rows="10"
 				rowsPerPageTemplate="10,25,50"
 				rendered="#{not empty cargoBean.cargos}" selectionMode="single"
-				selection="#{cargoBean.cargo}" rowKey="#{cargo.id}">
+				selection="#{cargoBean.cargo}" rowKey="#{cargo.id}" paginatorPosition="bottom">
 
 				<f:facet name="header">
 					<h:outputText value="Lista de Cargos Cadastrados:" />

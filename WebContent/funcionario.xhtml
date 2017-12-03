@@ -11,52 +11,53 @@
 	<ui:define name="titulo">Novo Funcionário</ui:define>
 	<ui:define name="conteudo">
 		<h:form>
-			<fieldset>
-				<legend>Dados do Funcionário</legend>
+			<p:fieldset legend="Dados do Funcionário">
+				
+				<h:inputHidden value="#{funcionarioBean.funcionario.id}"></h:inputHidden>
+				<p:messages autoUpdate="true"  ></p:messages>
 				<h:panelGrid columns="2">
 
-					<h:outputLabel value="Nome:" for="nome" />
-					<p:inputText id="nome" value="#{funcionarioBean.funcionario.nome}" />
+					<p:outputLabel value="Nome:" for="nome" />
+					<p:inputText id="nome" value="#{funcionarioBean.funcionario.nome}" required="true" requiredMessage="Nome obrigatório"  />
 
-					<h:outputLabel value="Telefone:" for="telefone" />
+					<p:outputLabel value="Telefone:" for="telefone" />
 					<p:inputText id="telefone"
 						value="#{funcionarioBean.funcionario.telefone}" />
 
-					<h:outputLabel value="Endereco:" for="endereco" />
+					<p:outputLabel value="Endereco:" for="endereco" />
 					<p:inputText id="endereco"
-						value="#{funcionarioBean.funcionario.endereco}" />
+						value="#{funcionarioBean.funcionario.endereco}" required="true" requiredMessage="Endereço obrigatório"  />
 
-					<h:outputLabel value="Bairro:" for="bairro" />
+					<p:outputLabel value="Bairro:" for="bairro" />
 					<p:inputText id="bairro"
 						value="#{funcionarioBean.funcionario.bairro}" />
 
-					<h:outputLabel value="Cidade" for="cidade" />
+					<p:outputLabel value="Cidade" for="cidade" />
 					<p:inputText id="cidade"
 						value="#{funcionarioBean.funcionario.cidade}" />
 
-					<h:outputLabel value="Login" for="login" />
+					<p:outputLabel value="Login" for="login" />
 					<p:inputText id="login"
-						value="#{funcionarioBean.funcionario.login}" />
+						value="#{funcionarioBean.funcionario.login}" required="true" requiredMessage="Login obrigatório" />
 
-					<h:outputLabel value="Senha" for="senha" />
-					<p:inputText id="senha"
-						value="#{funcionarioBean.funcionario.senha}" />
+					<p:outputLabel value="Senha" for="senha" />
+					<p:password id="senha"
+						value="#{funcionarioBean.funcionario.senha}" required="true" requiredMessage="Senha obrigatória" />
 
-
-					<h:outputLabel value="Cargo" for="cargo" />
-					<p:selectOneMenu value="#{funcionarioBean.cargoId}">
+					<p:outputLabel value="Cargo" for="cargo" />
+					<p:selectOneMenu value="#{funcionarioBean.cargoId}" id="cargo" required="true" requiredMessage="Cargo obrigatório">
+						<f:selectItem itemLabel="Selecione Cargo" itemValue="" noSelectionOption="true" />
 						<f:selectItems value="#{funcionarioBean.cargos}" var="cargo" itemLabel="#{cargo.nome}" itemValue="#{cargo.id}"></f:selectItems>
 						
 					</p:selectOneMenu>
 
 
 				</h:panelGrid>
-			</fieldset>
+			</p:fieldset>
 
 
 			<p:commandButton value="Gravar" action="#{funcionarioBean.gravar}" />
-			<p:commandButton value="Voltar" ajax="false" action="listaFuncionario"
-				onclick="this.form.target='_self'"></p:commandButton>
+			<p:commandButton value="Voltar" ajax="false" action="#{funcionarioBean.acaoAbrirListagem}" immediate="true"/>
 		</h:form>
 	</ui:define>
 </ui:composition>

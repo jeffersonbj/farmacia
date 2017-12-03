@@ -25,6 +25,8 @@ public class ClienteBean {
 	public String gravar() {
 		System.out.println("Atualizando Clientes: " + this.cliente.getId());
 
+		//this.cliente.setTelefone(this.cliente.getTelefone().replaceAll("\\D+", ""));
+		
 		if (this.cliente.getId() > 0) {
 			new DAO<Cliente>(Cliente.class).atualiza(this.cliente);
 		} else {
@@ -43,22 +45,6 @@ public class ClienteBean {
 			this.clientes = new DAO<Cliente>(Cliente.class).listaTodos();
 		}
 		return this.clientes;
-	}
-
-	public String convertStringToDate(Date indate) {
-		String dateString = null;
-		SimpleDateFormat sdfr = new SimpleDateFormat("dd/MMM/yyyy");
-
-		/*
-		 * you can also use DateFormat reference instead of SimpleDateFormat
-		 * like this: DateFormat df = new SimpleDateFormat("dd/MMM/yyyy");
-		 */
-		try {
-			dateString = sdfr.format(indate);
-		} catch (Exception ex) {
-			System.out.println(ex);
-		}
-		return dateString;
 	}
 
 	public String acaoAbrirAlteracao() {

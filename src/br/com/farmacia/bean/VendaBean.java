@@ -1,39 +1,91 @@
 package br.com.farmacia.bean;
 
-import java.text.SimpleDateFormat;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+
+import org.hibernate.validator.constraints.NotBlank;
+import org.primefaces.context.RequestContext;
+import org.primefaces.event.SelectEvent;
 
 import br.com.farmacia.dao.DAO;
-import br.com.farmacia.modelo.Cargo;
+import br.com.farmacia.modelo.Cliente;
 import br.com.farmacia.modelo.FormaPagamento;
 import br.com.farmacia.modelo.Produto;
 import br.com.farmacia.modelo.Venda;
+import br.com.farmacia.modelo.VendaProduto;
 import br.com.farmacia.util.JSFUtil;
+import br.com.farmacia.util.SessionUtil;
 
 @ManagedBean
-@RequestScoped
-public class VendaBean {
+@ViewScoped
+public class VendaBean implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private Venda venda = new Venda();
 	private List<Venda> vendas = null;
-	private List<FormaPagamento> formasPagamento = null;
-	
-	
+
 	public Venda getVenda() {
 		return venda;
 	}
 
 	public String gravar() {
-		System.out.println("Atualizando Vendas: " + this.venda.getId());
+
+		if (!ValidarQuantidadeItens()) {
+			return "";
+		}
+
+		Set<VendaProduto> produtosVendidos = new HashSet<VendaProduto>();
+
+		System.out.println("Quantidade de produtos: " + this.getProdutosSelecionados().size());
+
+		System.out.println("CLIENTE: " + venda.getCliente().getNome());
+		System.out.println("FORMA PAGAMENTO: " + this.formaPagamentoId);
+
+		System.out.println("FORMA PAGAMENTO: " + this.getFormaPagamento().getNome());
+
+		// this.venda.setProdutos(this.produtosSelecionados);
+		// this.venda.setCliente(this.clienteSelecionado);
+		this.venda.setFormasPagamento(this.formaPagamento);
+		this.venda.setFuncionario(SessionUtil.getFuncionarioLogado());
+
+		for (Produto prod : getProdutosSelecionados()) {
+			System.out.println("Produto: " + prod.getNome() + " - " + prod.getQuantidadeVenda() + " unidades");
+
+			produtosVendidos.add(new VendaProduto(this.venda, prod, prod.getQuantidadeVenda()));
+		}
+
+		this.venda.setVendaProduto(produtosVendidos);
 
 		if (this.venda.getId() > 0) {
 			new DAO<Venda>(Venda.class).atualiza(this.venda);
 		} else {
+			this.venda.setDataVenda(new Date());
+
 			new DAO<Venda>(Venda.class).adiciona(this.venda);
+
+			System.out.println("VENDA ID: " + this.venda.getId());
+
+			for (VendaProduto vp : produtosVendidos) {
+				new DAO<VendaProduto>(VendaProduto.class).adiciona(vp);
+			}
 		}
 
 		this.vendas = null;
@@ -43,27 +95,25 @@ public class VendaBean {
 
 	}
 
+	public boolean ValidarQuantidadeItens() {
+		for (Produto prod : getProdutosSelecionados()) {
+			if (prod.getQuantidadeVenda() <= 0) {
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
+						"Por favor, digite quantidade maior que 0 para o(s) produto(s) selecionado(s)."));
+
+				return false;
+			}
+		}
+		return true;
+
+	}
+
 	public List<Venda> getVendas() {
 		if (this.vendas == null) {
 			this.vendas = new DAO<Venda>(Venda.class).listaTodos();
 		}
+		
 		return this.vendas;
-	}
-
-	public String convertStringToDate(Date indate) {
-		String dateString = null;
-		SimpleDateFormat sdfr = new SimpleDateFormat("dd/MMM/yyyy");
-
-		/*
-		 * you can also use DateFormat reference instead of SimpleDateFormat
-		 * like this: DateFormat df = new SimpleDateFormat("dd/MMM/yyyy");
-		 */
-		try {
-			dateString = sdfr.format(indate);
-		} catch (Exception ex) {
-			System.out.println(ex);
-		}
-		return dateString;
 	}
 
 	public String acaoAbrirAlteracao() {
@@ -79,13 +129,13 @@ public class VendaBean {
 
 		return "venda?faces-redirect=true";
 	}
-	
+
 	public String acaoAbrirListagem() {
 		this.venda = new Venda();
 
 		return "listaVenda?faces-redirect=true";
 	}
-	
+
 	public String acaoExcluir() {
 		System.out.println("exclusão");
 
@@ -101,18 +151,69 @@ public class VendaBean {
 		return "listaVenda";
 	}
 
-	public List<FormaPagamento> getCargos() {
+	// Dialogo de Busca
+	public void clienteSelecionado(SelectEvent event) {
+		Cliente cliente = (Cliente) event.getObject();
+		venda.setCliente(cliente);
+	}
+
+	@NotBlank
+	public String getNomeCliente() {
+		return venda.getCliente() == null ? null : venda.getCliente().getNome();
+	}
+
+	public void setNomeCliente(String nome) {
+
+	}
+
+	// Forma Pagamento
+	private FormaPagamento formaPagamento = new FormaPagamento();
+	private List<FormaPagamento> formasPagamento = null;
+	private Integer formaPagamentoId = 0;
+
+	public Integer getFormaPagamentoId() {
+		return formaPagamentoId;
+	}
+
+	public void setFormaPagamentoId(Integer formaPagamentoId) {
+		this.formaPagamentoId = formaPagamentoId;
+	}
+
+	public FormaPagamento getFormaPagamento() {
+		return formaPagamento;
+	}
+
+	public void setFormaPagamento(FormaPagamento formaPagamento) {
+		this.formaPagamento = formaPagamento;
+	}
+
+	public List<FormaPagamento> getFormasPagamento() {
 		if (this.formasPagamento == null) {
 			this.formasPagamento = new DAO<FormaPagamento>(FormaPagamento.class).listaTodos();
+			this.formasPagamento.add(0, new FormaPagamento(0, "", ""));
 		}
 		return this.formasPagamento;
 	}
-	
-	//Produtos - Filtro
+
+	public void onFormaChange() {
+		System.out.println("AJAX ON CHANGE FORMA PAGAMENTO");
+
+		if (formaPagamentoId > 0) {
+			// formaPagamento = getFormasPagamento().stream().filter(o ->
+			// o.getId() == formaPagamentoId).findFirst().get();
+			for (FormaPagamento forma : getFormasPagamento()) {
+				if (forma.getId() == formaPagamentoId) {
+					formaPagamento = forma;
+				}
+			}
+		}
+	}
+
+	// Produtos - Filtro
 	private List<Produto> produtos;
 	private List<Produto> produtosFiltrado;
 	private List<Produto> produtosSelecionados;
-	
+
 	public List<Produto> getProdutosFiltrado() {
 		return produtosFiltrado;
 	}
@@ -121,11 +222,11 @@ public class VendaBean {
 		this.produtosFiltrado = produtosFiltrado;
 	}
 
-	public List<Produto> getProdutos(){
-		if(this.produtos == null){
+	public List<Produto> getProdutos() {
+		if (this.produtos == null) {
 			this.produtos = new DAO<Produto>(Produto.class).listaTodos();
 		}
-		
+
 		return this.produtos;
 	}
 
@@ -135,5 +236,19 @@ public class VendaBean {
 
 	public void setProdutosSelecionados(List<Produto> produtosSelecionados) {
 		this.produtosSelecionados = produtosSelecionados;
+	}
+
+	// Custom Filter
+	public boolean filterByPrice(Object value, Object filter, Locale locale) {
+		String filterText = (filter == null) ? null : filter.toString().trim();
+		if (filterText == null || filterText.equals("")) {
+			return true;
+		}
+
+		if (value == null) {
+			return false;
+		}
+
+		return ((Comparable) value).compareTo(Float.valueOf(filterText)) > 0;
 	}
 }

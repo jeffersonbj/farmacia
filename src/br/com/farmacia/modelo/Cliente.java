@@ -10,10 +10,14 @@ import javax.persistence.PrimaryKeyJoinColumn;
 @PrimaryKeyJoinColumn(referencedColumnName = "id")
 public class Cliente extends Pessoa {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Date dataDeNascimento;
 	private Integer numResidencia;
 	private String pontoDeReferencia;
-	private String cep;
+	private String cep;	
 
 	public Cliente(){
 		super();

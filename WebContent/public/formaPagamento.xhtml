@@ -8,27 +8,28 @@
 
 <ui:composition template="../_template.xhtml">
 
-	<ui:define name="titulo">Forma de Pagamento</ui:define>
+	<ui:define name="titulo">Nova Forma de Pagamento</ui:define>
 	<ui:define name="conteudo">
 
 		<h:form>
-			<h:inputHidden id="idForma" value="#{formaPagamentoBean.forma.id}" />
-			<h:panelGrid columns="2">
-				<h:outputLabel value="Nome: " for="nome" />
-				<p:inputText id="nome" value="#{formaPagamentoBean.forma.nome}" />
+			<p:fieldset legend="Dados de Forma de Pagamento">
+				<h:inputHidden id="idForma" value="#{formaPagamentoBean.forma.id}" />
+				<p:messages autoUpdate="true"></p:messages>
+				<h:panelGrid columns="2">
+					<h:outputLabel value="Nome: " for="nome" />
+					<p:inputText id="nome" value="#{formaPagamentoBean.forma.nome}"  required="true" requiredMessage="Nome obrigatório."/>
 
-				<h:outputLabel value="Descrição: " for="descricao" />
-				<p:inputText id="descricao"
-					value="#{formaPagamentoBean.forma.descricao}" />
+					<h:outputLabel value="Descrição: " for="descricao" />
+					<p:inputText id="descricao"
+						value="#{formaPagamentoBean.forma.descricao}" />
 
+				</h:panelGrid>
+			</p:fieldset>
+			<p:commandButton action="#{formaPagamentoBean.gravar}" value="Gravar" />
 
-				<p:commandButton value="Voltar" ajax="false"
-					action= "#{FormaPagamentoBean. acaoAbrirListagem}"
-					onclick="this.form.target='_self'"></p:commandButton>
+			<p:commandButton value="Voltar" ajax="false"
+				action="#{formaPagamentoBean.acaoAbrirListagem}" immediate="true"></p:commandButton>
 
-				<p:commandButton action="#{formaPagamentoBean.gravar}"
-					value="Salvar" />
-			</h:panelGrid>
 		</h:form>
 	</ui:define>
 </ui:composition>

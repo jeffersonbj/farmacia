@@ -4,7 +4,6 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
 
-
 <h:head>
 	<title>login</title>
 	<script name="jquery/jquery.js" library="primefaces"></script>
@@ -13,21 +12,29 @@
 <h:body>
 	<div id="frmLogin">
 		<h:form>
-			<h3>Login</h3>
-			<h:outputText value="Nome " />
-			<p:inputText id="username" value="#{loginBean.login}" required="true"></p:inputText>
-			<h:message for="username"></h:message>
-			<br></br>
-			<br></br>
+			<p:panel >
+				<h3>Login</h3>
+				<p:messages id="messages" showDetail="true" autoUpdate="false"
+					closable="true" showSummary="false" />
+				<h:panelGrid columns="3" style="">
 
-			<h:outputText value="Senha " />
-			<p:password id="password" value="#{loginBean.senha}" required="true"></p:password>
-			<h:message for="password"></h:message>
-			<br></br>
-			<br></br>
+					<p:outputLabel value="Nome " />
+					<p:inputText id="username" value="#{loginBean.login}"
+						required="true" requiredMessage="Login obrigatório."></p:inputText>
+					<br></br>
+					<br></br>
 
-			<p:commandButton action="#{loginBean.validarLogin}"
-				value="Login"></p:commandButton>
+					<p:outputLabel value="Senha " />
+					<p:password id="password" value="#{loginBean.senha}"
+						required="true" requiredMessage="Senha obrigatória."></p:password>
+					<br></br>
+					<br></br>
+
+					<p:commandButton action="#{loginBean.validarLogin}" value="Login"
+						ajax="false"></p:commandButton>
+
+				</h:panelGrid>
+			</p:panel>
 		</h:form>
 	</div>
 </h:body>

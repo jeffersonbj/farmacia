@@ -9,7 +9,7 @@
 <h:head>
 	<script name="jquery/jquery.js" library="primefaces"></script>
 	<meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
-	
+
 	<h:outputStylesheet name="css/font-awesome.min.css" target="head" />
 </h:head>
 
@@ -18,28 +18,37 @@
 		<p:growl id="messages" />
 
 		<p:menubar>
-			<p:menuitem value="Pedidos" url="/public/listaVenda.xhtml" icon="ui-icon-document"/>
-			<p:menuitem value="Cliente" url="/public/listaCliente.xhtml" icon="ui-icon-document"/>
-			<p:menuitem value="Produto" url="/public/listaProduto.xhtml" icon="ui-icon-document"/>
-			<p:menuitem value="Forma de Pagamento" url="/public/listaFormaPagamento.xhtml" icon="ui-icon-document"/>
-			<p:menuitem value="Funcionário" url="/listaFuncionario.xhtml" icon="ui-icon-document" rendered="#{loginBean.gerente}"/>
-			<p:menuitem value="Cargos" url="/listaCargo.xhtml" icon="ui-icon-document" rendered="#{loginBean.gerente}"/>
-			
+			<p:menuitem value="Pedidos" url="/public/listaVenda.xhtml"
+				icon="ui-icon-document" />
+			<p:menuitem value="Cliente" url="/public/listaCliente.xhtml"
+				icon="ui-icon-document" />
+			<p:menuitem value="Produto" url="/public/listaProduto.xhtml"
+				icon="ui-icon-document" />
+			<p:menuitem value="Forma de Pagamento"
+				url="/public/listaFormaPagamento.xhtml" icon="ui-icon-document" />
+			<p:menuitem value="Funcionário" url="/listaFuncionario.xhtml"
+				icon="ui-icon-document" rendered="#{loginBean.gerente}" />
+			<p:menuitem value="Cargos" url="/listaCargo.xhtml"
+				icon="ui-icon-document" rendered="#{loginBean.gerente}" />
+
 			<f:facet name="options">
-				<p:commandButton  value="Sair" icon="ui-icon-extlink" action="#{loginBean.logout}"/>
+				<p:commandButton value="Sair" icon="ui-icon-extlink"
+					action="#{loginBean.logout}" immediate="true"/>
 			</f:facet>
 		</p:menubar>
 	</h:form>
 
-	<div id="cabecalho">
-		<h1>
-			<ui:insert name="titulo"></ui:insert>
-		</h1>
-	</div>
-	<div id="conteudo">
-		<ui:insert name="conteudo">
-		</ui:insert>
-	</div>
+
+		<div id="cabecalho">
+			<h2>
+				<ui:insert name="titulo"></ui:insert>
+			</h2>
+		</div>
+		<div id="conteudo">
+			<ui:insert name="conteudo">
+			</ui:insert>
+		</div>
+
 </body>
 
 

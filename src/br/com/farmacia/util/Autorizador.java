@@ -24,7 +24,7 @@ public class Autorizador implements PhaseListener {
 		if ("/login.xhtml".equals(nomePagina)) {
 			return;
 		}
-
+			
 		Funcionario usuarioLogado = (Funcionario) context.getExternalContext().getSessionMap().get("usuarioLogado");
 
 		NavigationHandler handler = context.getApplication().getNavigationHandler();
