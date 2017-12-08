@@ -19,7 +19,8 @@
 				var="venda" paginator="true" rows="10"
 				rowsPerPageTemplate="10,25,50"
 				rendered="#{not empty vendaBean.vendas}" selectionMode="single"
-				selection="#{vendaBean.venda}" rowKey="#{venda.id}" paginatorPosition="bottom">
+				selection="#{vendaBean.venda}" rowKey="#{venda.id}"
+				paginatorPosition="bottom">
 
 				<f:facet name="header">
 					<h:outputText value="Lista de Vendas Cadastradas:" />
@@ -34,14 +35,26 @@
 					<f:facet name="header">Telefone</f:facet>
 					<h:outputText value="#{venda.cliente.nome}" />
 				</p:column>
-			
+
+				<p:column>
+					<f:facet name="header">N° Venda</f:facet>
+					<h:outputText value="#{venda.id}">
+					</h:outputText>
+				</p:column>
+				
 				<p:column>
 					<f:facet name="header">Data da Venda</f:facet>
-					<h:outputText value="#{venda.dataVenda}" >
+					<h:outputText value="#{venda.dataVenda}">
 						<f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
 					</h:outputText>
 				</p:column>
-							
+
+
+				<p:column>
+					<f:facet name="header">SubTotal</f:facet>
+					<h:outputText value="#{venda.subtotal}" >
+					</h:outputText>
+				</p:column>
 
 				<p:column visible="false">
 					<f:facet name="header">

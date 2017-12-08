@@ -69,8 +69,15 @@ public class VendaBean implements Serializable {
 		for (Produto prod : getProdutosSelecionados()) {
 			System.out.println("Produto: " + prod.getNome() + " - " + prod.getQuantidadeVenda() + " unidades");
 
-			produtosVendidos.add(new VendaProduto(this.venda, prod, prod.getQuantidadeVenda()));
+			produtosVendidos.add(new VendaProduto(this.venda, prod, prod.getQuantidadeVenda(), prod.getValorDoProduto()));
 		}
+		
+		float subtotal = 0;
+		for (VendaProduto prod : produtosVendidos) {
+			subtotal = subtotal + (prod.getQuantidade() * prod.getPreco() );
+		}
+
+		this.venda.setSubtotal(subtotal);
 
 		this.venda.setVendaProduto(produtosVendidos);
 
@@ -112,7 +119,7 @@ public class VendaBean implements Serializable {
 		if (this.vendas == null) {
 			this.vendas = new DAO<Venda>(Venda.class).listaTodos();
 		}
-		
+
 		return this.vendas;
 	}
 
@@ -196,8 +203,6 @@ public class VendaBean implements Serializable {
 	}
 
 	public void onFormaChange() {
-		System.out.println("AJAX ON CHANGE FORMA PAGAMENTO");
-
 		if (formaPagamentoId > 0) {
 			// formaPagamento = getFormasPagamento().stream().filter(o ->
 			// o.getId() == formaPagamentoId).findFirst().get();
@@ -250,5 +255,14 @@ public class VendaBean implements Serializable {
 		}
 
 		return ((Comparable) value).compareTo(Float.valueOf(filterText)) > 0;
+	}
+
+	public float onCalculaTotalItem(Produto produto) {
+		if (produto.getQuantidadeVenda() > 0 && produto.getValorDoProduto() > 0) {
+			System.out.println("total: " + (produto.getQuantidadeVenda() * produto.getValorDoProduto()));
+
+			return produto.getQuantidade() * produto.getValorDoProduto();
+		}		
+		return 0;
 	}
 }

@@ -15,9 +15,9 @@ public class Venda {
 	@Id
 	@GeneratedValue
 	private int id;
-	private int quantidade;
 	private Date dataVenda;
 	private Date dataEntrega;
+	private Float subtotal;
 	
 	@OneToMany(mappedBy = "venda")
 	private Set<VendaProduto> vendaProduto;
@@ -55,14 +55,6 @@ public class Venda {
 	}
 	
 	
-	public int getQuantidade() {
-		return quantidade;
-	}
-
-	public void setQuantidade(int quantidade) {
-		this.quantidade = quantidade;
-	}
-
 	public Date getDataVenda() {
 		return dataVenda;
 	}
@@ -101,6 +93,14 @@ public class Venda {
 
 	public void setFormasPagamento(FormaPagamento formasPagamento) {
 		this.formasPagamento = formasPagamento;
+	}
+
+	public Float getSubtotal() {
+		return subtotal;
+	}
+
+	public void setSubtotal(Float subtotal) {
+		this.subtotal = subtotal;
 	}
 
 	

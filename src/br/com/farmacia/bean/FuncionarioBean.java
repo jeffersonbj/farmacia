@@ -1,7 +1,5 @@
 package br.com.farmacia.bean;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -20,27 +18,29 @@ public class FuncionarioBean {
 	private List<Funcionario> funcionarios = null;
 	private List<Cargo> cargos = null;
 	private int cargoId = 0;
-	
+
 	public Funcionario getFuncionario() {
 		return funcionario;
 	}
 
-	public void setCargoId(int cargoId){
+	public void setCargoId(int cargoId) {
 		this.cargoId = cargoId;
 	}
-	
-	public int getCargoId(){
+
+	public int getCargoId() {
+		if (this.cargoId < 1 && this.funcionario.getCargo() != null) {
+			this.cargoId = this.funcionario.getCargo().getId();
+		}
+
 		return this.cargoId;
 	}
-	
+
 	public String gravar() {
-		System.out.println("Atualizando Funcionarios: " + this.funcionario.getId());
-		
-		if(this.cargoId > 0){
-			System.out.println("CARGO ID: " + this.cargoId);
+
+		if (this.cargoId > 0) {
 			this.funcionario.setCargo(new DAO<Cargo>(Cargo.class).buscaPorId(cargoId));
 		}
-		
+
 		if (this.funcionario.getId() > 0) {
 			new DAO<Funcionario>(Funcionario.class).atualiza(this.funcionario);
 		} else {
@@ -81,13 +81,13 @@ public class FuncionarioBean {
 
 		return "funcionario?faces-redirect=true";
 	}
-	
+
 	public String acaoAbrirListagem() {
 		this.funcionario = new Funcionario();
 
 		return "listaFuncionario?faces-redirect=true";
 	}
-	
+
 	public String acaoExcluir() {
 		System.out.println("exclusão");
 
@@ -102,18 +102,4 @@ public class FuncionarioBean {
 
 		return "listaFuncionario";
 	}
-
-	/*
-	 * 
-	 * <h:form id="formprincipal">
-	 * 
-	 * </h:form> <h:form id="dlg"> <p:confirmDialog
-	 * message="Deseja realmente excluir este registo?" hideEffect="explode"
-	 * header="Aviso" severity="alert" widgetVar="confirmation">
-	 * <p:commandButton id="btnSim" value="Sim" oncomplete="confirmation.hide()"
-	 * action="#{transportadorBean.excluir}" process="@form"
-	 * update="formprincipal "/> <p:commandButton id="btnNao" value="Não"
-	 * onclick="confirmation.hide()" type="button"/> </p:confirmDialog>
-	 * </h:form>
-	 */
 }

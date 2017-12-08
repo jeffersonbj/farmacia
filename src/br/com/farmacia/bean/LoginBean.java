@@ -11,6 +11,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import br.com.farmacia.dao.FuncionarioDAO;
 import br.com.farmacia.modelo.Funcionario;
+import br.com.farmacia.util.StringUtil;
 
 @ManagedBean
 @SessionScoped
@@ -45,6 +46,8 @@ public class LoginBean implements Serializable {
 	}
 
 	public void setSenha(String senha) {
+		new StringUtil();
+		senha = StringUtil.getEncryptedPassword(senha);
 		this.senha = senha;
 	}
 

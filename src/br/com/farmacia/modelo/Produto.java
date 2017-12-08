@@ -28,6 +28,9 @@ public class Produto implements Serializable{
 	@Transient
 	private int quantidadeVenda;
 	
+	@Transient
+	private float totalPorItem;
+	
 	@OneToMany(mappedBy = "produto")
 	private Set<VendaProduto> vendaProduto;
 
@@ -101,6 +104,14 @@ public class Produto implements Serializable{
 
 	public void setQuantidadeVenda(int quantidadeVenda) {
 		this.quantidadeVenda = quantidadeVenda;
+	}
+
+	public float getTotalPorItem() {
+		return totalPorItem;
+	}
+
+	public void setTotalPorItem(float totalPorItem) {
+		this.totalPorItem = totalPorItem;
 	}
 
 }

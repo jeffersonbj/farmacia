@@ -42,7 +42,9 @@
 
 					<p:outputLabel value="Senha" for="senha" />
 					<p:password id="senha"
-						value="#{funcionarioBean.funcionario.senha}" required="true" requiredMessage="Senha obrigatória" />
+						value="#{funcionarioBean.funcionario.senha}" required="true" requiredMessage="Senha obrigatória" >
+							
+					</p:password>
 
 					<p:outputLabel value="Cargo" for="cargo" />
 					<p:selectOneMenu value="#{funcionarioBean.cargoId}" id="cargo" required="true" requiredMessage="Cargo obrigatório">

@@ -15,15 +15,17 @@ public class VendaProduto implements Serializable {
 	private Venda venda;
 	private Produto produto;
 	private Integer quantidade;
+	private Float preco;
 
 	public VendaProduto() {
 	}
 
-	public VendaProduto(Venda venda, Produto produto, Integer quantidade) {
+	public VendaProduto(Venda venda, Produto produto, Integer quantidade, Float preco) {
 		super();
 		this.venda = venda;
 		this.produto = produto;
 		this.quantidade = quantidade;
+		this.preco= preco;
 	}
 
 	@Id
@@ -55,5 +57,15 @@ public class VendaProduto implements Serializable {
 	public void setQuantidade(Integer quantidade) {
 		this.quantidade = quantidade;
 	}
+
+	public Float getPreco() {
+		return preco;
+	}
+
+	public void setPreco(Float preco) {
+		this.preco = preco;
+	}
+	
+	
 
 }
