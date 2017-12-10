@@ -1,51 +1,43 @@
 package br.com.farmacia.modelo;
 
 import java.util.Date;
-import java.util.Set;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 @Entity
 public class Venda {
-	
+
 	@Id
 	@GeneratedValue
 	private int id;
+	
+	@Column(nullable = false)
 	private Date dataVenda;
+	
 	private Date dataEntrega;
+	
 	private Float subtotal;
-	
-	@OneToMany(mappedBy = "venda")
-	private Set<VendaProduto> vendaProduto;
-	
+
+	@Column(nullable = false)
+	private float precoTotal;
+
 	@OneToOne
-	@JoinColumn(name = "formaPagamentoId")
+	@JoinColumn(name = "formaPagamentoId", nullable = false)
 	private FormaPagamento formasPagamento;
-	
-	@OneToOne
-	@JoinColumn(name = "clienteId")
+
+	@ManyToOne
+	@JoinColumn(name = "clienteId", nullable = false)
 	private Cliente cliente;
-	
-	@OneToOne
-	@JoinColumn(name = "funcionarioId")
+
+	@ManyToOne
+	@JoinColumn(name = "funcionarioId", nullable = false)
 	private Funcionario funcionario;
-	
-	/*@ManyToMany
-	@JoinTable(name="venda_tem_produtos", joinColumns={@JoinColumn(name="vendaId")}, inverseJoinColumns={@JoinColumn(name="produtoId")})
-	private List<Produto> Produtos;*/
-	
-	public Set<VendaProduto> getVendaProduto(){
-		return this.vendaProduto;
-	}
-	
-	public void setVendaProduto(Set<VendaProduto> vendaProduto){
-		this.vendaProduto = vendaProduto;
-	}
-	
+
 	public int getId() {
 		return id;
 	}
@@ -53,8 +45,7 @@ public class Venda {
 	public void setId(int id) {
 		this.id = id;
 	}
-	
-	
+
 	public Date getDataVenda() {
 		return dataVenda;
 	}
@@ -103,7 +94,12 @@ public class Venda {
 		this.subtotal = subtotal;
 	}
 
-	
-	
+	public float getPrecoTotal() {
+		return precoTotal;
+	}
+
+	public void setPrecoTotal(float precoTotal) {
+		this.precoTotal = precoTotal;
+	}
 
 }

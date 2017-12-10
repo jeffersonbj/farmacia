@@ -2,20 +2,37 @@ package br.com.farmacia.modelo;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+@SuppressWarnings("serial")
 @Entity
 @Table(name = "vendaProduto")
 public class VendaProduto implements Serializable {
 
-	private Venda venda;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long codigo;
+	
+	@ManyToOne
+	@JoinColumn(nullable = false)
 	private Produto produto;
+	
+	@ManyToOne
+	@JoinColumn(nullable = false)
+	private Venda venda;
+	
+	@Column(nullable = false)
 	private Integer quantidade;
-	private Float preco;
+	
+	@Column(nullable = false)
+	private float preco;
 
 	public VendaProduto() {
 	}
@@ -28,9 +45,7 @@ public class VendaProduto implements Serializable {
 		this.preco= preco;
 	}
 
-	@Id
-	@ManyToOne
-	@JoinColumn(name = "vendaId")
+	
 	public Venda getVenda() {
 		return venda;
 	}
@@ -39,9 +54,6 @@ public class VendaProduto implements Serializable {
 		this.venda = venda;
 	}
 
-	@Id
-	@ManyToOne
-	@JoinColumn(name = "produtoId")
 	public Produto getProduto() {
 		return produto;
 	}
@@ -58,12 +70,20 @@ public class VendaProduto implements Serializable {
 		this.quantidade = quantidade;
 	}
 
-	public Float getPreco() {
+	public float getPreco() {
 		return preco;
 	}
 
-	public void setPreco(Float preco) {
+	public void setPreco(float preco) {
 		this.preco = preco;
+	}
+
+	public Long getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(Long codigo) {
+		this.codigo = codigo;
 	}
 	
 	

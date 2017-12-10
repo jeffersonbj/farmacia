@@ -31,9 +31,6 @@ public class Produto implements Serializable{
 	@Transient
 	private float totalPorItem;
 	
-	@OneToMany(mappedBy = "produto")
-	private Set<VendaProduto> vendaProduto;
-
 	public int getId() {
 		return id;
 	}
@@ -88,15 +85,7 @@ public class Produto implements Serializable{
 
 	public void setValorDoProduto(float valorDoProduto) {
 		this.valorDoProduto = valorDoProduto;
-	}
-	
-	public Set<VendaProduto> getVendaProduto() {
-		return vendaProduto;
-	}
-
-	public void setVendaProduto(Set<VendaProduto> vendaProduto) {
-		this.vendaProduto = vendaProduto;
-	}
+	}	
 
 	public int getQuantidadeVenda() {
 		return quantidadeVenda;

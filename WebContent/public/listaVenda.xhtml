@@ -10,7 +10,7 @@
 	<ui:define name="titulo">Pedidos</ui:define>
 	<ui:define name="conteudo">
 
-		<h:form>
+		<h:form id="form">
 			<p:commandButton value="Novo Pedido" ajax="false" immediate="true"
 				image="ui-icon-document" action="#{vendaBean.acaoAbrirInclusao}"></p:commandButton>
 
@@ -20,41 +20,84 @@
 				rowsPerPageTemplate="10,25,50"
 				rendered="#{not empty vendaBean.vendas}" selectionMode="single"
 				selection="#{vendaBean.venda}" rowKey="#{venda.id}"
-				paginatorPosition="bottom">
+				paginatorPosition="bottom"
+				emptyMessage="Sem vendas para serem exibidas."
+				style="text-align:center;" sortBy="#{venda.dataVenda.time}"
+				sortOrder="descending">
 
 				<f:facet name="header">
 					<h:outputText value="Lista de Vendas Cadastradas:" />
 				</f:facet>
 
-				<p:column>
+				<p:column filterBy="#{venda.id}" style="width:150px;">
+					<f:facet name="header">Cód. Venda</f:facet>
+					<h:outputText value="#{venda.id}">
+					</h:outputText>
+				</p:column>
+
+				<p:column filterBy="#{venda.cliente.nome}">
 					<f:facet name="header">Cliente</f:facet>
 					<h:outputText value="#{venda.cliente.nome}" />
 				</p:column>
 
-				<p:column>
+				<p:column filterBy="#{venda.cliente.telefone}"
+					filterMatchMode="contains">
 					<f:facet name="header">Telefone</f:facet>
-					<h:outputText value="#{venda.cliente.nome}" />
+					<h:outputText value="#{venda.cliente.telefone}" />
 				</p:column>
 
+
+
 				<p:column>
-					<f:facet name="header">N° Venda</f:facet>
-					<h:outputText value="#{venda.id}">
+					<f:facet name="header">Total da Venda</f:facet>
+					<h:outputText value="#{venda.precoTotal}">
+						<f:convertNumber minFractionDigits="2" currencySymbol="R$"
+							currencyCode="BRL"></f:convertNumber>
 					</h:outputText>
 				</p:column>
-				
+
 				<p:column>
 					<f:facet name="header">Data da Venda</f:facet>
 					<h:outputText value="#{venda.dataVenda}">
-						<f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
+						<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"></f:convertDateTime>
 					</h:outputText>
 				</p:column>
-
 
 				<p:column>
-					<f:facet name="header">SubTotal</f:facet>
-					<h:outputText value="#{venda.subtotal}" >
+					<f:facet name="header">Data da Entrega</f:facet>
+					<h:outputText value="Entrega pendente"
+						rendered="#{venda.dataEntrega == null}" style="color:red;">
+
+					</h:outputText>
+
+					<h:outputText value="#{venda.dataEntrega}">
+						<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"
+							timeZone="America/Sao_Paulo"></f:convertDateTime>
 					</h:outputText>
 				</p:column>
+
+				<p:column headerText="Ações">
+					<p:commandButton icon="ui-icon-calendar"
+						actionListener="#{vendaBean.setVendaCorrenteParaDlg}"
+						id="btnRegistrarEntrega"
+						oncomplete="PF('dlgRegistraVenda').show();" process="@this">
+						<f:attribute name="vendaSelecionada" value="#{venda}"></f:attribute>
+					</p:commandButton>
+					<p:tooltip value="Clique aqui para regitrar entrega."
+						trackMouse="true" for="btnRegistrarEntrega">
+					</p:tooltip>
+					<p:commandButton icon="ui-icon-info"
+						actionListener="#{vendaBean.setVendaCorrenteParaDlg}"
+						id="btnDetalhes"
+						oncomplete="PF('dlgRegistraVenda').show();" process="@this">
+						<f:attribute name="vendaSelecionada" value="#{venda}"></f:attribute>						
+					</p:commandButton>
+					<p:tooltip value="Clique aqui para ir para Detalhes da Venda."
+						trackMouse="true" for="btnDetalhes">
+					</p:tooltip>
+				</p:column>
+
+
 
 				<p:column visible="false">
 					<f:facet name="header">
@@ -73,6 +116,38 @@
 			</p:dataTable>
 
 		</h:form>
+
+		<p:outputPanel autoUpdate="true">
+			<p:dialog header="Registrar Entrega" widgetVar="dlgRegistraVenda"
+				draggable="false" resizable="false" modal="true" closable="false"
+				id="dlgRegistraVenda" visible="#{facesContext.validationFailed}">
+				<h:form id="formRegistrarEntrega">
+					<p:messages autoUpdate="true"></p:messages>
+					<h:panelGrid id="painelFinalizar" columns="2">
+
+						<p:outputLabel value="Data da Entrega: " />
+						<p:calendar id="calendario" locale="pt_BR"
+							pattern="dd/MM/yyyy HH:mm" navigator="true" showOn="button"
+							required="true" requiredMessage="Por favor, preencha uma data."
+							value="#{vendaBean.vendaDlg.dataEntrega}"
+							maxdate="#{vendaBean.hoje}">
+							
+							</p:calendar>
+
+					</h:panelGrid>
+					<h:panelGrid columns="2">
+						<p:commandButton value="Gravar"
+							actionListener="#{vendaBean.registrarEntrega}"
+							update=":form:tabelaVendas">
+							<f:attribute value="#{vendaBean.vendaDlg}"
+								name="vendaSelecionadaDlg"></f:attribute>
+						</p:commandButton>
+						<p:commandButton value="Fechar"
+							oncomplete="PF('dlgRegistraVenda').hide();" />
+					</h:panelGrid>
+				</h:form>
+			</p:dialog>
+		</p:outputPanel>
 	</ui:define>
 </ui:composition>
 </html>
