@@ -3,15 +3,8 @@ package br.com.farmacia.bean;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
-
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -20,9 +13,9 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
 import org.hibernate.validator.constraints.NotBlank;
-import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
+import br.com.farmacia.Exception.ProdutoEsgotadoException;
 import br.com.farmacia.dao.DAO;
 import br.com.farmacia.dao.VendaDAO;
 import br.com.farmacia.modelo.Cliente;
@@ -47,12 +40,12 @@ public class VendaBean implements Serializable {
 	private List<Venda> vendas = null;
 	private List<VendaProduto> produtosDaVenda = new ArrayList<VendaProduto>();
 	Date hoje;
-	
+
 	@PostConstruct
 	public void init() {
-	     hoje = new Date();
+		hoje = new Date();
 	}
-	
+
 	public Date getHoje() {
 		return hoje;
 	}
@@ -186,9 +179,17 @@ public class VendaBean implements Serializable {
 
 		this.venda.setDataVenda(new Date());
 
-		// new DAO<Venda>(Venda.class).adiciona(this.venda);
-		new VendaDAO();
-		VendaDAO.adicionar(venda, produtosDaVenda);
+		
+		try {
+			new VendaDAO();
+			VendaDAO.adicionar(venda, produtosDaVenda);
+
+		} catch (ProdutoEsgotadoException ex) {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), ex.getMessage()));
+			
+			return null;
+		}
 
 		System.out.println("VENDA ID: " + this.venda.getId());
 

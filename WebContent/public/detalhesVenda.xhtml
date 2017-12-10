@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition template="../_template.xhtml">
+
+
+	<ui:define name="conteudo">
+		<h:form id="form">
+			<p:fieldset legend="Detalhes do Pedido">
+				<p:outputLabel value="teste"
+					rendered="#{detalhesVendaBean.vendaProdutos == null}"></p:outputLabel>
+
+				<p:dataTable var="vp" value="#{detalhesVendaBean.vendaProdutos}"
+					emptyMessage="Não existem registros para serem exibidos"
+					paginatorPosition="bottom"
+					sortBy="#{vp.venda.cliente.nome}">
+					<p:column headerText="Cliente" groupRow="true">
+						<h:outputText value="#{vp.venda.cliente.nome}"></h:outputText>
+					</p:column>
+					<p:column headerText="Produto">
+						<h:outputText value="#{vp.produto.nome}"></h:outputText>
+					</p:column>
+					<p:column headerText="Quantidade">
+						<h:outputText value="#{vp.quantidade}"></h:outputText>
+					</p:column>
+					<p:column headerText="Valor parcial">
+						<h:outputText value="#{vp.preco}">
+							<f:convertNumber currencySymbol="R$" type="currency" />
+						</h:outputText>
+					</p:column>
+					<p:summaryRow>
+						<p:column colspan="3" style="text-align:right">
+							<h:outputText value="Total:" />
+						</p:column>
+						<p:column>
+							<h:outputText value="#{detalhesVendaBean.totalVenda}">
+								<f:convertNumber type="currency" currencySymbol="R$" />
+							</h:outputText>
+						</p:column>
+					</p:summaryRow>
+				</p:dataTable>
+			</p:fieldset>
+
+			<p:commandButton value="Voltar" ajax="false"
+				action="#{detalhesVendaBean.acaoAbrirListagem}" immediate="true"></p:commandButton>
+		</h:form>
+	</ui:define>
+</ui:composition>
+
+</html>

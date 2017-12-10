@@ -14,7 +14,7 @@
 			<p:fieldset legend="Dados do Pedido">
 				<h:inputHidden id="idCliente" value="#{vendaBean.venda.id}" />
 
-				
+
 				<h:panelGrid columns="2" layout="grid" id="panelDados">
 
 					<p:outputLabel value="Cliente:" for="cliente" />
@@ -58,7 +58,8 @@
 						emptyMessage="Sem produtos para serem exibidos"
 						filteredValue="#{vendaBean.produtosFiltrado}" rows="3"
 						paginator="true" id="produtosDT" editable="true" editMode="cell"
-						paginatorPosition="bottom" rowIndexVar="rowIdx">
+						paginatorPosition="bottom" rowIndexVar="rowIdx"
+						style="text-align:center">
 
 						<f:facet name="header">
 							<p:outputPanel style="text-align:right;">
@@ -68,7 +69,7 @@
 									placeholder="Nome, código, valor..." />
 							</p:outputPanel>
 						</f:facet>
-						
+
 						<p:column filterBy="#{produto.codigoDoProduto}"
 							style="width:200px;" headerText="Código"
 							filterMatchMode="contains">
@@ -78,28 +79,33 @@
 							filterMatchMode="contains">
 							<h:outputText value="#{produto.nome}" />
 						</p:column>
+
 						<p:column filterBy="#{produto.valorDoProduto}" headerText="Valor"
 							filterFunction="#{vendaBean.filterByPrice}" style="width:200px;">
 							<h:outputText value="#{produto.valorDoProduto}">
 								<f:convertNumber currencySymbol="R$" type="currency" />
 							</h:outputText>
 						</p:column>
-						<p:column headerText="Quantidade" filterable="false"
-							style="width:150px; text-align:center;">
-							<p:cellEditor >
-								<f:facet name="output">
-									<h:inputText value="#{produto.quantidadeVenda}" style="width:100px; text-align:center;"/>
-								</f:facet>
-								<f:facet name="input">
-									<p:inputNumber id="modelInput" value="#{produto.quantidadeVenda}"
-										style="width:100%" minValue="1" maxValue="99">										
-									</p:inputNumber>
-								</f:facet>
 
-							</p:cellEditor>
-
+						<p:column headerText="Quantidade em estoque" style="width:100px;">
+							<h:outputText value="#{produto.quantidade}"></h:outputText>
 						</p:column>
 
+						<p:column headerText="Quantidade" filterable="false"
+							style="width:150px; text-align:center;">
+							<p:cellEditor>
+								<f:facet name="output">
+									<h:inputText value="#{produto.quantidadeVenda}"
+										style="width:100px; text-align:center;" />
+								</f:facet>
+								<f:facet name="input">
+									<p:inputNumber id="modelInput"
+										value="#{produto.quantidadeVenda}"
+										style="width:80px !important;" minValue="1" maxValue="99">
+									</p:inputNumber>
+								</f:facet>
+							</p:cellEditor>
+						</p:column>
 
 						<p:column headerText="Opções"
 							style="width:150px; text-align:center;">
@@ -121,7 +127,7 @@
 					<p:dataTable id="tabProdVendidos"
 						emptyMessage="Nenhum registro encontrado" paginator="true"
 						value="#{vendaBean.produtosDaVenda}" var="produtoVenda" rows="5"
-						paginatorPosition="bottom">
+						paginatorPosition="bottom" style="text-align:center">
 
 						<p:column headerText="Nome" sortBy="#{produtoVenda.produto.nome}">
 							<h:outputText value="#{produtoVenda.produto.nome}"></h:outputText>
@@ -160,7 +166,7 @@
 					</p:dataTable>
 				</p:panel>
 				<p:panel header="">
-					<p:messages autoUpdate="true" showDetail="false" closable="true" ></p:messages>
+					<p:messages autoUpdate="true" showDetail="false" closable="true"></p:messages>
 					<h:panelGrid id="painelTotal" columns="2">
 						<p:outputLabel value="Total" />
 						<h:outputText value="#{vendaBean.venda.precoTotal}">

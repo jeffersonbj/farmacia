@@ -51,8 +51,7 @@
 				<p:column>
 					<f:facet name="header">Total da Venda</f:facet>
 					<h:outputText value="#{venda.precoTotal}">
-						<f:convertNumber minFractionDigits="2" currencySymbol="R$"
-							currencyCode="BRL"></f:convertNumber>
+						<f:convertNumber currencySymbol="R$" type="currency" />
 					</h:outputText>
 				</p:column>
 
@@ -86,11 +85,11 @@
 					<p:tooltip value="Clique aqui para regitrar entrega."
 						trackMouse="true" for="btnRegistrarEntrega">
 					</p:tooltip>
-					<p:commandButton icon="ui-icon-info"
-						actionListener="#{vendaBean.setVendaCorrenteParaDlg}"
-						id="btnDetalhes"
-						oncomplete="PF('dlgRegistraVenda').show();" process="@this">
-						<f:attribute name="vendaSelecionada" value="#{venda}"></f:attribute>						
+					
+					<p:commandButton icon="ui-icon-info" id="btnDetalhes"
+						action="#{detalhesVendaBean.acaoAbrirDetalhes}" ajax="false"
+						immediate="true">
+						<f:param value="#{venda.id}" name="itemId" />
 					</p:commandButton>
 					<p:tooltip value="Clique aqui para ir para Detalhes da Venda."
 						trackMouse="true" for="btnDetalhes">
@@ -131,8 +130,8 @@
 							required="true" requiredMessage="Por favor, preencha uma data."
 							value="#{vendaBean.vendaDlg.dataEntrega}"
 							maxdate="#{vendaBean.hoje}">
-							
-							</p:calendar>
+
+						</p:calendar>
 
 					</h:panelGrid>
 					<h:panelGrid columns="2">
